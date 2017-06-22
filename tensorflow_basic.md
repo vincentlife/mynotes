@@ -51,6 +51,11 @@ tf.ones_like(tensor,dype=None,name=None)
 tf.zeros_like(tensor,dype=None,name=None) 
 新建一个与给定的tensor类型大小一致的tensor，其所有元素为1或0
 
+### tf.lin_space | tf.range()
+* lin_space(start,stop,num,name=None) a tensor of stop - start / num - 1
+数据类型是float32, float64，范围[start,stop]
+* range(start, limit, delta=1, dtype=None, name='range')  范围[start,limit)
+
 ### tf.random_normal | tf.truncated_normal | tf.random_uniform
 * tf.random_uniform([1,2],-1.0,1.0)
 随机均匀分布
@@ -72,7 +77,12 @@ shape(expand_dims(t, -1)) ==> [2, 1]
 tf.squeeze(input, squeeze_dims = None, name = None)
 将input中维度是1的那一维去掉。但是如果你不想把维度是1的全部去掉，那么你可以使用squeeze_dims参数，来指定需要去掉的位置。
 
+### tf.gather
+gather(params,indices,validate_indices=None,name=None)
+从params中取出indces对应的slice，最后输出的数据维度是indices.shape + params.shape[1:]。如tf.gather([ 1 11 21 31],[2,0,1,2]) -> [21,1,11,21]
+
 ### tf.slice
+
 
 ### tf.split
 split(value, num_or_size_splits, axis=0, num=None, name="split")
@@ -82,7 +92,7 @@ split0, split1, split2, split3, split4 = tf.split(input,5,0)
 
 ### tf.tile
 tf.tile(input, multiples, name = None)
-通过给定的tensor去构造一个新的tensor。所使用的方法是将input复制multiples次，输出的tensor的第i维有input.dims(i) * multiples[i]个元素，input中的元素被复制multiples[i]次。比如，input = [a b c d], multiples = [2]，那么tile(input, multiples) = [a b c d a b c d]。
+通过给定的tensor去构造一个新的tensor。将input复制multiples次，输出的tensor的第i维有input.dims(i) * multiples[i]个元素，input的维度要和multiple的长度一致。input中的元素被复制multiples[i]次。比如，input = [a b c d], multiples = [2]，那么tile(input, multiples) = [a b c d a b c d]。0维有4*2个元素
 
 ### tf.concat()
 tf.concat(values, axis, name="concat")
@@ -90,35 +100,24 @@ tf.concat(values, axis, name="concat")
 
 ### tf.reshape()
 tf.reshape(tensor, shape, name = None)
-对tensor的维度进行重新组合。给定一个tensor，这个函数会返回数据维度是shape的一个新的tensor，但是tensor里面的元素不变。
-如果shape是一个特殊值[-1]，那么tensor将会变成一个扁平的一维tensor。
-tf.reshape(n,[-1,len(n)]) 结果为 [[...]]
+shape中-1的那一维将由其它维infer出，当tensor是scalar，shape =  [] reshapes to a scalar 
 
 ### tf.unstack() tf.stack()
 unstack(value,num=None,axis=0,name='unstack')
 当axis=0 , shape (A, B, C, D) 变成A个(B,C,D)的tensor
 stack(values,axis=0,name='stack') 
-tf.stack([x, y, z]) = np.asarray([x, y, z])
+Given a list of length N of tensors of shape (A, B, C)，if axis == 0 then the output tensor will have the shape (N, A, B, C). if axis == 1 then the output tensor will have the shape (A, N, B, C)
+
+### tf.reduce 系列
+被reduce的维数 (3,2,4) axis=1 -> (3,4)
 
 ### tf.matmul()
-矩阵乘法 y = tf.matmul(W, x_data) + b
+matmul(a, b, 
+transpose_a=False, transpose_b=False, 
+adjoint_a=False,adjoint_b=False, 
+a_is_sparse=False, b_is_sparse=False,name=None)
+adjoint: conjugated and transposed before multiplication.
+3-D  tensor  [2,2,3] * [2,3,2] => [2,2,2]
 
-# seq2seq
-## tf.contrib.sequence_loss
-sequence_loss(logits, targets, weights,
-                  average_across_timesteps=True, average_across_batch=True,
-                  softmax_loss_function=None, name=None)
-### logits: 
-shape [batch_size, sequence_length, num_decoder_symbols], 
-* batch_size 指batch大小
-* sequence_length 序列长度，指num_steps
-* num_decoder_symbols 指输出词库的大小vocab_size
-### targets | weights
-shape [batch_size, sequence_length]
-### 
-sequence_loss_by_example的做法是，针对logits中的每一个num_step,即[batch_size, vocab_size], 对所有vocab_size个预测结果，得出预测值最大的那个类别，与target中的值相比较计算Loss值
-
-# tensor board
-## Visualizing Learning
-
-## Embedding Visualizing
+# distribution
+## Multinomial

@@ -49,6 +49,7 @@ lambda x:x+1
 
 ### reduce
 * reduce(lambda x, y: x + y, foo)
+* from functools import reduce python3
 
 # Decorator
 

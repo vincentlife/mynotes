@@ -25,12 +25,25 @@ plt.xlabel(‘x’)，plt.ylabel(‘y’)，plt.title(‘…’)
 
 # Gallery
 ## basic
-基本画图方法：plt.plot(x,y)，
+plt.plot([x1,y1],[x2,y2],"r-") 两点间画线
+## meshgrid
+delta = 0.2
+x = np.arange(-3, 3, delta)
+y = np.arange(-3, 3, delta)
+X, Y = np.meshgrid(x, y)
+
 ## scatter
-绘制散点图：plt.scatter(x,y,c = ‘..’,s = ..)，c表示颜色，s表示大小
+绘制散点图：plt.scatter(x,y,c = ‘..’,s = ..)，c表示颜色，s表示大小，marker表示形状
+* b: blue g: green r: red c: cyan m: magenta y: yellow k: black w: white
+* ('o', 'v', '^', '<', '>', '8', 's', 'p', '*', 'h', 'H', 'D', 'd', 'P', 'X')
 ## hist
 绘制方图：plt.hist(a,b)，a为长方形的左横坐标值，b为柱高。alpha是频率分布图的透明度, bins指定bin(箱子)的个数,也就是总共有几条条状图
+## contour
+X, Y = np.meshgrid(x, y)
+plt.contour(X, Y, Z1, linewidths=0.5)
 
+## 3d 
+from mpl_toolkits.mplot3d import Axes3D
 
 
 # Seaborn Methods
