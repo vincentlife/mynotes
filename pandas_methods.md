@@ -1,4 +1,28 @@
-# pandas基本方法
+# IO
+## DataFrame()
+DataFrame(np.ndarray,index=,columns=) # index 是行索引 columns是列名
+## read_csv()
+* sep : str, default ‘,’
+指定分隔符。如果不指定参数，则会尝试使用逗号分隔。分隔符长于一个字符并且不是‘\s+’,将使用python的语法分析器。并且忽略数据中的逗号。正则表达式例子：'\r\t'
+delimiter : str, default None
+定界符，备选分隔符（如果指定该参数，则sep参数失效）
+ 
+* header : int or list of ints, default ‘infer’
+指定行数用来作为列名，数据开始行数。如果文件中没有列名，则默认为0，否则设置为None。如果明确设定header=0 就会替换掉原来存在列名。header参数可以是一个list例如：[0,1,3]，这个list表示将文件中的这些行作为列标题（意味着每一列有多个标题），介于中间的行将被忽略掉。注意：如果skip_blank_lines=True 那么header参数忽略注释行和空行，所以header=0表示第一行数据而不是文件的第一行。
+
+* index_col : int or sequence or False, default None
+用作行索引的列编号或者列名，如果给定一个序列则有多个行索引。
+如果文件不规则，行尾有分隔符，则可以设定index_col=False 来是的pandas不适用第一列作为行索引。
+
+* squeeze : boolean, default False
+如果文件值包含一列，则返回一个Series
+
+* skiprows : list-like or integer, default None
+需要忽略的行数（从文件开始处算起），或需要跳过的行号列表（从0开始）。
+
+### to_csv()
+
+
 ## 工具类
 ### 分割合并
 * pd.cut() 拆成bin： bins = [18, 25, 35, 60, 100] cats = pd.cut(ages, bins)
@@ -8,13 +32,14 @@
 pieces = [df[:3], df[3:7], df[7:]]; pd.concat(pieces)
 * pd.merge(left, right, on='key') 通过键拼接列，键为列名
 
-## DataFrame
-### IO
-* DataFrame(np.ndarray,index=,columns=) # index 是行索引 columns是列名
-* pd.read_csv()
-* to_csv()
-* dataframe转化为numpy.ndarray: example.values[:, :]
+# DataFrame
+## IO 
+### df.values[:, :]
+dataframe转化为numpy.ndarray 
 
+## 
+
+## drop
 
 ### 增删改查
 * 添加行 s = df.iloc[3]  df.append(s, ignore_index=True)

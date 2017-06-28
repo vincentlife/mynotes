@@ -82,7 +82,8 @@ gather(params,indices,validate_indices=None,name=None)
 从params中取出indces对应的slice，最后输出的数据维度是indices.shape + params.shape[1:]。如tf.gather([ 1 11 21 31],[2,0,1,2]) -> [21,1,11,21]
 
 ### tf.slice
-
+slice(input_,begin,size,name=None)
+从begin处抽取size个,begin和size要与input的shape相同
 
 ### tf.split
 split(value, num_or_size_splits, axis=0, num=None, name="split")
@@ -109,7 +110,8 @@ stack(values,axis=0,name='stack')
 Given a list of length N of tensors of shape (A, B, C)，if axis == 0 then the output tensor will have the shape (N, A, B, C). if axis == 1 then the output tensor will have the shape (A, N, B, C)
 
 ### tf.reduce 系列
-被reduce的维数 (3,2,4) axis=1 -> (3,4)
+* min max mean sum prod 被reduce的维数 (3,2,4) axis=1 -> (3,4),若没有指定维数，则求所有元素
+* reduce_all 计算逻辑与(logical and) reduce_any 计算逻辑或(logical or)
 
 ### tf.matmul()
 matmul(a, b, 
