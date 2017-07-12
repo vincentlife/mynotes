@@ -11,6 +11,15 @@
  
 “取消全局代理”，这个选项只是取消windows系统一级的代理设置，但是XX-Net本身会在本地建立127.0.0.1:8087这个代理端口，程序只要把代理服务器设置为这个地址，就可以通过这个地址和端口上网，这个和全局代理基本上没什么区别，区别可能在于哪些网站走代理，哪些不走，这个时候需要XX-Net来判断，而不是WinHTTP或者你想要用来上网的程序，比如chrome浏览器
 
+## docker toolbox install 
+* docker-machine create --driver=virtualbox default boot2docker.iso可以直接从github下载https://github.com/boot2docker/boot2docker/releases/，复制到C:\Users\Administrator\.docker\machine\cache下
+
+*  docker-machine env default 获得虚拟机的环境变量
+
+*  docker-machine env default | Invoke-Expression 把当前的PowerShell和虚拟机里面的Docker Linux建立的连接
+*   DAO加速器 https://www.daocloud.io/mirror#accelerator-doc
+sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=mirror地址 |g" /var/lib/boot2docker/profile
+
 
 
 

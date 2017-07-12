@@ -98,6 +98,10 @@ tf.tile(input, multiples, name = None)
 ### tf.concat()
 tf.concat(values, axis, name="concat")
 沿着concat_dim维度，去重新串联value，组成一个新的tensor。从直观上来看，我们取的concat_dim的那一维的元素个数肯定会增加。
+t1 = [[1, 2, 3], [4, 5, 6]]
+t2 = [[7, 8, 9], [10, 11, 12]]
+tf.concat([t1, t2], 0) ==> [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+tf.concat([t1, t2], 1) ==> [[1, 2, 3, 7, 8, 9], [4, 5, 6, 10, 11, 12]]
 
 ### tf.reshape()
 tf.reshape(tensor, shape, name = None)
@@ -106,6 +110,8 @@ shape中-1的那一维将由其它维infer出，当tensor是scalar，shape =  []
 ### tf.unstack() tf.stack()
 unstack(value,num=None,axis=0,name='unstack')
 当axis=0 , shape (A, B, C, D) 变成A个(B,C,D)的tensor
+应用: tf.unstack(tf.shape(tensor)) 获取该tensor每一维大小的scala
+
 stack(values,axis=0,name='stack') 
 Given a list of length N of tensors of shape (A, B, C)，if axis == 0 then the output tensor will have the shape (N, A, B, C). if axis == 1 then the output tensor will have the shape (A, N, B, C)
 
@@ -120,6 +126,11 @@ adjoint_a=False,adjoint_b=False,
 a_is_sparse=False, b_is_sparse=False,name=None)
 adjoint: conjugated and transposed before multiplication.
 3-D  tensor  [2,2,3] * [2,3,2] => [2,2,2]
+
+### tf.cond
+''' cond (pred, true_fn=None, false_fn=None, strict=False, name=None)
+z = tf.multiply(a, b)
+result = tf.cond(x < y, lambda: tf.add(x, z), lambda: tf.square(y))
 
 # distribution
 ## Multinomial
