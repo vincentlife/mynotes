@@ -66,7 +66,7 @@ The generated values follow a normal distribution with specified mean and standa
 
 ## 变换
 ### tf.expand_dims 
-tf.expand_dims(input, dim, name = None)
+    tf.expand_dims(input, dim, name = None)
 图片数据维度是[height, width, channels]，加入“批量”这个信息expand_dims(images, 0)，那么该图片的维度就变成了[1, height, width, channels]dim的值也可以是负数，从尾部开始插入。
 ’t’ is a tensor of shape [2] 
 shape(expand_dims(t, 0)) ==> [1, 2] 
@@ -74,29 +74,30 @@ shape(expand_dims(t, 1)) ==> [2, 1]
 shape(expand_dims(t, -1)) ==> [2, 1]
 
 ### tf.squeeze
-tf.squeeze(input, squeeze_dims = None, name = None)
+    tf.squeeze(input, squeeze_dims = None, name = None)
 将input中维度是1的那一维去掉。但是如果你不想把维度是1的全部去掉，那么你可以使用squeeze_dims参数，来指定需要去掉的位置。
 
 ### tf.gather
-gather(params,indices,validate_indices=None,name=None)
+    tf.gather(params,indices,validate_indices=None,name=None)
 从params中取出indces对应的slice，最后输出的数据维度是indices.shape + params.shape[1:]。如tf.gather([ 1 11 21 31],[2,0,1,2]) -> [21,1,11,21]
 
 ### tf.slice
-slice(input_,begin,size,name=None)
+    tf.slice(input_,begin,size,name=None)
 从begin处抽取size个,begin和size要与input的shape相同
 
 ### tf.split
-split(value, num_or_size_splits, axis=0, num=None, name="split")
+    tf.split(value, num_or_size_splits, axis=0, num=None, name="split")
 沿着split_dim维度将value切成num_split块。要求，num_split必须被value.shape[split_dim]整除，即value.shape[split_dim] % num_split == 0。
-input = tf.random_normal([5,30])
-split0, split1, split2, split3, split4 = tf.split(input,5,0)
+
+    input = tf.random_normal([5,30])
+    split0, split1, split2, split3, split4 = tf.split(input,5,0)
 
 ### tf.tile
-tf.tile(input, multiples, name = None)
+    tf.tile(input, multiples, name = None)
 通过给定的tensor去构造一个新的tensor。将input复制multiples次，输出的tensor的第i维有input.dims(i) * multiples[i]个元素，input的维度要和multiple的长度一致。input中的元素被复制multiples[i]次。比如，input = [a b c d], multiples = [2]，那么tile(input, multiples) = [a b c d a b c d]。0维有4*2个元素
 
 ### tf.concat()
-tf.concat(values, axis, name="concat")
+    tf.concat(values, axis, name="concat")
 沿着concat_dim维度，去重新串联value，组成一个新的tensor。从直观上来看，我们取的concat_dim的那一维的元素个数肯定会增加。
 t1 = [[1, 2, 3], [4, 5, 6]]
 t2 = [[7, 8, 9], [10, 11, 12]]
@@ -108,7 +109,7 @@ tf.reshape(tensor, shape, name = None)
 shape中-1的那一维将由其它维infer出，当tensor是scalar，shape =  [] reshapes to a scalar 
 
 ### tf.unstack() tf.stack()
-unstack(value,num=None,axis=0,name='unstack')
+    unstack(value,num=None,axis=0,name='unstack')
 当axis=0 , shape (A, B, C, D) 变成A个(B,C,D)的tensor
 应用: tf.unstack(tf.shape(tensor)) 获取该tensor每一维大小的scala
 
@@ -120,17 +121,19 @@ Given a list of length N of tensors of shape (A, B, C)，if axis == 0 then the o
 * reduce_all 计算逻辑与(logical and) reduce_any 计算逻辑或(logical or)
 
 ### tf.matmul()
-matmul(a, b, 
-transpose_a=False, transpose_b=False, 
-adjoint_a=False,adjoint_b=False, 
-a_is_sparse=False, b_is_sparse=False,name=None)
+    matmul(a, b, 
+    transpose_a=False, transpose_b=False, 
+    adjoint_a=False,adjoint_b=False, 
+    a_is_sparse=False, b_is_sparse=False,name=None)
 adjoint: conjugated and transposed before multiplication.
 3-D  tensor  [2,2,3] * [2,3,2] => [2,2,2]
 
 ### tf.cond
-''' cond (pred, true_fn=None, false_fn=None, strict=False, name=None)
-z = tf.multiply(a, b)
-result = tf.cond(x < y, lambda: tf.add(x, z), lambda: tf.square(y))
+    cond (pred, true_fn=None, false_fn=None, strict=False, name=None)
+sample:
+
+    z = tf.multiply(a, b)
+    result = tf.cond(x < y, lambda: tf.add(x, z), lambda: tf.square(y)) 
 
 # distribution
 ## Multinomial

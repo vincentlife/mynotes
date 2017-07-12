@@ -1,3 +1,33 @@
+# rnn_cell
+## BasicLSTMCell
+It(BasicLSTMCell) does not allow cell clipping, a projection layer, and does not use peep-hole connections: it is the basic baseline.
+## LSTMCell
+
+# dynamic_rnn
+
+# bidirectional_dynamic_rnn
+
+(max_time, batch_size, cell_fw.hidden_size)
+
+# raw_rnn
+## 参数
+    raw_rnn( cell, loop_fn, parallel_iterations=None, swap_memory=False, scope=None)
+## 返回值
+ A tuple (emit_ta, final_state, final_loop_state)
+* emit_ta: The RNN output TensorArray
+* final_state: The final cell state.
+* final_loop_state: The final loop state as returned by loop_fn.
+
+## loop_fn
+tf.nn.raw_rnn 最重要的就是 loop_fn 函数的编写，loop_fn做了一个映射
+> (time, previous_cell_output, previous_cell_state, previous_loop_state) -> (elements_finished, input, cell_state, output, loop_state).
+
+loop_fn调用的时机有2个：
+1. Initial call at time=0 to provide initial cell_state and input to RNN.
+2. Transition call for all following timesteps where you define transition between two adjacent steps.
+
+
+
 # seq2seq
 ## tf.contrib.sequence_loss
 sequence_loss(logits, targets, weights,
