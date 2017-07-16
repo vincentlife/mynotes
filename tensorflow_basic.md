@@ -7,6 +7,11 @@
 * shape：tensor的形状（返回的是tf.TensorShape这个表示tensor形状的类） 
 * value_index:表示这个tensor在其操作结果中的索引
 
+## tensor.eval(session = sess)
+获取张量的值
+## tensor.get_shape()
+获取维度，是一个Dimension类型的对象，可以用input.get_shape().as_list()[-1]来转换成list
+
 ## start
 为了便于在 IPython 等交互环境使用 TensorFlow，需要用 InteractiveSession 代替 Session 类,sess = tf.InteractiveSession()
 使用 Tensor.eval() 和 Operation.run() 方法代替 Session.run()。
@@ -17,8 +22,6 @@ sess.run() 执行操作,如assign.MatMul等
 init = tf.global_variables_initializer()，是预先对变量初始化，
 Tensorflow 的变量必须先初始化，然后才有值。而常值张量是不需要的。
 
-
-
 ## IO
 * tf.constant()
 声明一个常量 ，比如matrix1 = tf.constant([[3., 3.]])
@@ -27,8 +30,6 @@ matrix2 = tf.constant([[2.],[2.]])
 声明一个变量,同常量
 * tf.placeholder()
 设计placeholder节点的唯一的意图就是为了提供数据供给(feeding)的方法。placeholder节点被声明的时候是未初始化的， 也不包含数据。
-* tensor.eval(session = sess)
-获取张量的值
 
 ### tf.get_variable
 get_variable(name, shape=None, dtype=dtypes.float32, initializer=None,
@@ -43,13 +44,24 @@ get_variable(name, shape=None, dtype=dtypes.float32, initializer=None,
 
 ## 常用
 ### tf.ones | tf.zeros
-tf.ones(shape,type=tf.float32,name=None) 
-tf.zeros([2, 3], int32) 
+    tf.ones(shape,type=tf.float32,name=None) 
+    tf.zeros([2, 3], int32) 
 
 ### tf.ones_like | tf.zeros_like
-tf.ones_like(tensor,dype=None,name=None) 
-tf.zeros_like(tensor,dype=None,name=None) 
+    tf.ones_like(tensor,dype=None,name=None) 
+    tf.zeros_like(tensor,dype=None,name=None) 
 新建一个与给定的tensor类型大小一致的tensor，其所有元素为1或0
+
+### tf.one_hot
+    one_hot(indices,depth,on_value=None,off_value=None,
+    axis=None,dtype=None,name=None)
+* indices: A Tensor of indices.
+* depth: A scalar defining the depth of the one hot dimension.
+* axis: The axis to fill (default: -1, a new inner-most axis).
+* dtype: The data type of the output tensor.
+sample:
+indices = [[0, 2], [1, -1]]depth = 3 on_value = 1.0 off_value = 0.0 axis = -1
+output shape(2,2,3)
 
 ### tf.lin_space | tf.range()
 * lin_space(start,stop,num,name=None) a tensor of stop - start / num - 1
@@ -108,6 +120,10 @@ tf.concat([t1, t2], 1) ==> [[1, 2, 3, 7, 8, 9], [4, 5, 6, 10, 11, 12]]
 tf.reshape(tensor, shape, name = None)
 shape中-1的那一维将由其它维infer出，当tensor是scalar，shape =  [] reshapes to a scalar 
 
+### tf.transpose
+    transpose(a,perm=None,name='transpose')
+求转置，perm是tensor a的维数的排列(permutation)，比如[2,1,0]，即将3个维度转置
+
 ### tf.unstack() tf.stack()
     unstack(value,num=None,axis=0,name='unstack')
 当axis=0 , shape (A, B, C, D) 变成A个(B,C,D)的tensor
@@ -125,8 +141,15 @@ Given a list of length N of tensors of shape (A, B, C)，if axis == 0 then the o
     transpose_a=False, transpose_b=False, 
     adjoint_a=False,adjoint_b=False, 
     a_is_sparse=False, b_is_sparse=False,name=None)
+matmul 只能对2d或3d tensor进行运算
 adjoint: conjugated and transposed before multiplication.
 3-D  tensor  [2,2,3] * [2,3,2] => [2,2,2]
+
+### tf.multiply
+    multiply(x, y, name=None)
+每个元素相乘
+y: A Tensor. Must have the same type as x
+Returns: A Tensor. Has the same type as x
 
 ### tf.cond
     cond (pred, true_fn=None, false_fn=None, strict=False, name=None)

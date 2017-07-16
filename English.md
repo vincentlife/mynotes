@@ -1,4 +1,4 @@
-# 英语
+# Academic
 ## 词汇
 exponentiation e 的次方
 cascade 级联
@@ -19,3 +19,7 @@ parity 奇偶性
 is analogous to  相似
 not prone to the instability 
 whereas 然而，鉴于
+
+
+# 口语
+* I contend that perhaps you are not using that time most profitably.
