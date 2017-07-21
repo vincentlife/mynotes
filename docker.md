@@ -17,6 +17,8 @@ docker-machine create --driver=virtualbox default
 ## env
 docker-machine env default
 docker-machine env default | Invoke-Expression
+## ssh
+docker-machine ssh default
 
 # docker
 ## images
