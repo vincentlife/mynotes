@@ -4,12 +4,6 @@
 按照 Docker 最佳实践的要求，容器不应该向其存储层内写入任何数据，容器存储层要保持无状态化。所有的文件写入操作，都应该使用 数据卷（Volume）、或者绑定宿主目录，在这些位置的读写会跳过容器存储层，直接对宿主(或网络存储)发生读写，其性能和稳定性更高。
 一个 Docker Registry 中可以包含多个仓库（Repository）；每个仓库可以包含多个标签（Tag）；每个标签对应一个镜像。
 
-## docker install 
-
-
-
-
-
 # docker-machine
 ## ls
 ## create
@@ -36,9 +30,17 @@ docker images --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}"
 删除镜像
 docker rmi $(docker images -q -f dangling=true) 删除虚悬镜像
 
-## docker ps 
+## ps 
 查看哪些container
 * –a
+
+## run
+* sudo docker run ubuntu:14.04 /bin/echo 'Hello world'
+输出一个 “Hello World”，之后终止容器。
+* sudo docker run -t -i ubuntu:14.04 /bin/bash
+其中，-t 选项让Docker分配一个伪终端（pseudo-tty）并绑定到容器的标准输入上， -i 则让容器的标准输入保持打开。
+
+
 
 
 

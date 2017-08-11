@@ -1,6 +1,20 @@
 # windows
 ## sublime
-## 
+通过 ctrl+` 快捷键或者 View > Show Console菜单打开控制台
+快捷键 Ctrl+Shift+P（菜单 – Tools – Command Paletter），输入 install 选中Install Package并回车，输入或选择你需要的插件回车
+
+## pycharm
+### deployment
+首先我们需要配置PyCharm通服务器的代码同步，打开Tools | Deployment | Configuration
+点击左边的“+”添加一个部署配置，输入名字，类型选SFTP
+确定之后，再配置远程服务器的ip、端口、用户名和密码。root path是文件上传的根目录，注意这个目录必须用户名有权限创建文件。
+然后配置映射，local path是你的工程目录，就是需要将本地这个目录同步到服务器上面，我填的是项目根目录。 Deploy path on server 这里填写相对于root path的目录，下面那个web path不用管先
+如果你还有一些文件或文件夹不想同步，那么在配置对话框的第三个tab页“Excluded path”里面添加即可，可同时指定本地和远程。
+还有一个设置，打开Tools | Deployment | Options，将”Create Empty directories”打上勾，要是指定的文件夹不存在，会自动创建。
+手动上传方式很简单，选择需要同步的文件或文件夹，然后选择 Tools | Deployment | Upload to sftp(这个是刚刚配置的部署名称)
+选择Tools | Deployment | Browse Remote Host，打开远程文件视图，在右侧窗口就能看到远程主机中的文件
+配置远程Python解释器
+选择File | Settings，选择Project | Project Interpreter
 
 ## sumatra pdf
 应运行的命令框中输入："C:\Program Files\Sublime Text 3\sublime_text.exe" "%f:%l"

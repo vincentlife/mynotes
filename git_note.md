@@ -55,3 +55,9 @@ git clone <版本库的网址> <本地目录名> 该命令会在本地主机生�
 # diff
 * git diff 不加参数即默认比较工作区与暂存区
 * git diff [<commit-id>] [<commit-id>] 比较两个commit-id之间的差异
+
+
+# 合并远程分支
+假设这两个分支是a和b，那么fetch a和b，checkout a，将b merge到a，push a到远端。这样做，将b和a合到了一起，并且更新了本地和远端的a。
+pycharm中
+checkout到本地的master上，在master上去merge dev
