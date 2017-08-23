@@ -1,7 +1,29 @@
 # pip
 * pip install name /name.whl /url
 * pip install --upgrade
-* pip uninstall 
+* pip uninstall
+* pip install -r requirements.txt 
+* pip install --user
+pip install --user follows four rules:
+
+    - When globally installed packages are on the python path, and they conflict with the installation requirements, they are ignored, and not uninstalled.
+
+    - When globally installed packages are on the python path, and they satisfy the installation requirements, pip does nothing, and reports that requirement is satisfied (similar to how global packages can satisfy requirements when installing packages in a --system-site-packages virtualenv).
+
+    - pip will not perform a --user install in a --no-site-packages virtualenv (i.e. the default kind of virtualenv), due to the user site not being on the python path. The installation would be pointless.
+
+    - In a --system-site-packages virtualenv, pip will not install a package that conflicts with a package in the virtualenv site-packages. The --user installation would lack sys.path precedence and be pointless. 
+
+* pip show
+* pip search "query"
+
+# juypter
+## run 
+jupyter notebook 
+
+# kill
+kill %任务号
+kill pid
 
 # grep
 ## 参数
@@ -35,6 +57,20 @@ find . -type f -group sunk 找出当前目录用户组sunk拥有的所有文件
 
 # xargs
 通常和find一起使用
+
+# less
+less [参数]  文件
+
+b  向后翻一页
+d  向后翻半页
+h  显示帮助界面
+Q  退出less 命令
+u  向前滚动半页
+y  向前滚动一行
+空格键 滚动一行
+回车键 滚动一页
+[pagedown]： 向下翻动一页
+[pageup]：   向上翻动一页
 
 # base64
 base64 file

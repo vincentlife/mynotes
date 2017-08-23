@@ -12,6 +12,7 @@ CTRL B | CTRL 单击： 转到方法定义处
 CTRL ALT 左键：上次编辑处
 CTRL E: 最近访问的文件列表 
 Ctrl + Shift + F  或者连续2次敲击shift   全局查找
+Ctrl + Shift + R 全局替换
 
 CTRL + F1    显示错误描述或警告信息
 F2 / Shift + F2下一条、前一条高亮的错误

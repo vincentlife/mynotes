@@ -1,6 +1,8 @@
 # basic knowledge
 本地仓库由 git 维护的三棵树组成。工作目录，持有实际文件； 暂存区（Index,或者stage），像个缓存区域，临时保存改动；最后是HEAD，指向最后一次提交的结果。
 所以，git add命令实际上就是把要提交的所有修改放到暂存区（Stage），然后，执行git commit就可以一次性把暂存区的所有修改提交到分支。
+## origin
+origin指向远端代码库，是一个名字。origin指向的是repository。可以通过git remote add name url 添加新的
 
 # config
 * git config -l 
@@ -34,7 +36,7 @@ git clone <版本库的网址> <本地目录名> 该命令会在本地主机生�
 
 # push
 * git push 如果当前分支只有一个远程分支，那么主机名都可以省略
-* git push origin  如果当前分支与远程分支存在追踪关系，则本地分支和远程分支都可以省略，将当前分支推送到origin主机的对应分支
+* git push origin  如果当前分支与远程分支存在追踪关系，则本地分支和远程分支都可以省略，将当前分支推送到origin主机的对应分支。
 * git push origin master # 将本地主分支推到远程主分支
 * git push -u origin master # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
 * git push origin <local_branch> # 创建远程分支， origin是远程仓库名
