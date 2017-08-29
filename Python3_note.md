@@ -1,7 +1,3 @@
-# IO
-* sys.stdout.write(obj+'\n') print 调用该方法
-* 
-
 # encoding
 * ord(c) 返回一个Unicode字符的int类型的序号
 * chr(i) 与ord相反，返回Unicode字符
@@ -18,6 +14,9 @@
 * min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
 * l[1:9:-1] 取区间[1, 9)，取步长为-1的时候返回空集
 * l[9:1:-1] 取区间[9, 1), 取步长为-1的时候返回9到2
+
+# import
+import使一个变量名引用整个模块对象，因此必须通过模块名称来得到该模块的属性（例如，module1.printer）。而from会把变量名复制到另一个作用域，所以它就可以直接在脚本中使用复制后的变量名，而不用通过模块
 
 
 # attr
