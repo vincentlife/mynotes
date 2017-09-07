@@ -79,8 +79,6 @@ NR == 1, NR == 100 { print $0 }
 * 单引号：awk 'BEGIN{print "'\''"}'
 
 
-
-
 # grep
 ## 参数
 * -c 只输出匹配行的计数
@@ -133,3 +131,12 @@ base64 file
 echo "string" | base64
 echo -n "c25haWx3YXJyaW9y" | base64 -d
 -n 选项没有输出字符串结尾的' '换行字符
+
+
+# du
+du -ah --max-depth=1    
+a表示显示目录下所有的文件和文件夹（不含子目录），
+h表示以人类能看懂的方式
+max-depth表示目录的深度。
+
+# diff patch

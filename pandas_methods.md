@@ -32,33 +32,44 @@ delimiter : str, default None
 pieces = [df[:3], df[3:7], df[7:]]; pd.concat(pieces)
 * pd.merge(left, right, on='key') 通过键拼接列，键为列名
 
+### 分析
+* pd.crosstab(df["column1","column2"])
+* 
+
 # DataFrame
 ## IO 
 ### df.values[:, :]
 dataframe转化为numpy.ndarray 
 
-## 
+## new DataFrame
 
-## drop
 
-### 增删改查
+## 查
++ df['A'] 获取A列，等价于 df.A
++ df.loc[:,['A','B']] 按标签查询。需要注意的是，dataframe的索引[1:3]是包含1,2,3的，与一般python不同。
++ df.iloc[3:5,0:2] 按位置查询，或者df.iloc[[1,2,4],[0,2]]。
++ df.at[rows[0],'A'] 获取标量值，等价于df.loc[rows[0],'A']
++ df.iat[1,1]可获取标量
++ df.ix(1) df.ix('e') 混合索引,先用loc的方式来索引，索引失败就转成iloc的方式
++ df.iterrows() 返回(index, Series)对,可对DataFrame进行遍历。for循环遍历数据时一定要使用.iterrows()，或用.values()转换成ndarray再遍历，否则遍历的只是df的columns names。
+
+### 布尔索引
+* df[df.A > 0] 布尔索引 df2[df2['E'].isin(['two','four'])]
+*  data.loc[(data["Gender"]=="Female") & (data["Education"]=="Not Graduate") & (data["Loan_Status"]=="Y"), ["Gender","Education","Loan_Status"]] 
+
+## 增
 * 添加行 s = df.iloc[3]  df.append(s, ignore_index=True)
-* 添加列 
+* 添加列 df["new_column"] = s
 
+## 删
+del()
+df.drop(["column"],axis=1) axis=1是删除列
 
-+ del()
-+ df.drop(["column"],axis=1) axis=1是删除列
-
+## 改
 * df.at[dates[0],'A'] = 0 按标签赋值
 * df.iat[0,1] = 0 按位置赋值
 * df.loc[:,'D'] = np.array([5] * len(df)) 按列赋值
 * df2[df2 > 0] = -df2 赋值
-
-+ df['A'] 获取A列，等价于 df.A
-+ df.loc[:,['A','B']] 按标签查询。df.at[rows[0],'A'] 获取标量值，等价于df.loc[rows[0],'A'] 需要注意的是，dataframe的索引[1:3]是包含1,2,3的，与一般python不同。
-+ df.iloc[3:5,0:2] 按位置查询，或者df.iloc[[1,2,4],[0,2]]。df.iat[1,1]可获取标量
-+ df.ix(1) df.ix('e') 混合索引,先用loc的方式来索引，索引失败就转成iloc的方式
-+ df.iterrows() 返回(index, Series)对,可对DataFrame进行遍历。for循环遍历数据时一定要使用.iterrows()，或用.values()转换成ndarray再遍历，否则遍历的只是df的columns names。
 
 ### 处理数据
 * df.dropna(how='any')
@@ -78,16 +89,13 @@ dataframe转化为numpy.ndarray
 * df.apply() 在数据上使用函数
 * df.mean() 
 
-### 布尔索引
-* df[df.A > 0] 布尔索引 df2[df2['E'].isin(['two','four'])]
-*  data.loc[(data["Gender"]=="Female") & (data["Education"]=="Not Graduate") & (data["Loan_Status"]=="Y"), ["Gender","Education","Loan_Status"]] 
+
 
 
 
 ### 统计作图
 * df.index df.columns df.values values是将原本dataframe数据强制转化为numpy格式的数据来索引
 * df.describe()
-* pd.crosstab(df["column1","column2"])
 * df.value_counts()
 * df.groupby() 生成一个groupby对象，可调用其mean方法来计算分组平均值,size()返回大小。 dict(list(df.groupby('key1')))可以做成字典。
 *  data.boxplot(column="ApplicantIncome",by="Loan_Status") 
