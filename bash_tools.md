@@ -21,7 +21,30 @@ FStart.CStart Modifie,FEnd.CEnd Modifier -------Start--------,-------End--------
 FStart.CStart 选项 , FEnd.CEnd 选项
 ## 
 
-来自: http://man.linuxde.net/sort
+# 权限
+- 10个字符确定不同用户能对文件干什么
+- 第一个字符代表文件（-）、目录（d），链接（l）
+- 其余字符每3个一组（rwx），读（r）、写（w）、执行（x）
+- 第一组rwx：文件所有者的权限是读、写和执行
+- 第二组rw-：与文件所有者同一组的用户的权限是读、写但不能执行
+- 第三组r--：不与文件所有者同组的其他用户的权限是读不能写和执行
+- 0表示没有权限，1表示可执行权限，2表示可写权限，4表示可读权限，然后将其相加组成3位数来表示权限
+
+## chmod
+mkdir abc
+* chmod 755 abc：赋予abc权限rwxr-xr-x
+  
+* chmod u=rwx,g=rx,o=rx abc：u=用户权限，g=组权限，o=不同组其他用户权限，注意是逗号而不是空格
+* chmod u-x,g+w abc：给abc去除用户执行的权限，增加组写的权限
+* chmod a+r abc：给所有用户添加读的权限
+
+## chown chgrp
+改变所有者（chown）和用户组（chgrp）命令
+* chown xiaoming abc：改变abc的所有者为xiaoming
+* chown root ./abc：改变abc这个目录的所有者是root
+* chown ‐R root ./abc：改变abc这个目录及其下面所有的文件和目录的所有者是root。
+  - R 递归式地改变指定目录及其下的所有子目录和文件的拥有者。
+* chgrp root abc：改变abc所属的组为root
 
 # awk
 * awk '{print $3 "\t" $4}' marks.txt 打印第三列和第四列，从1开始

@@ -9,7 +9,7 @@
 * 使用zip()可进行两个变量的循环 for i,j in zip(range(2),range(2))
 * 交换变量 a,b = b,a
 * enumerate() for index，text in enumerate(list):
-* 列表推导式 [i*2 for i in range(10)] PS:python2中xrange被range取代
+* 列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
 * 使用dictionary实现switch dict = {key:arg} ,arg可以是function, dict.get(key,default) 
 * min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
 * l[1:9:-1] 取区间[1, 9)，取步长为-1的时候返回空集
@@ -111,6 +111,7 @@ re.X    该标志通过给予你更灵活的格式以便你将正则表达式写
 * ^   匹配字符串的开头
 * $   匹配字符串的末尾。
 * .   匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。 或[.\n]
+* () 表示group
 * \d  匹配一个数字字符。等价于 [0-9]。
 * \D  匹配一个非数字字符。等价于 [^0-9]。
 * \s  匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。

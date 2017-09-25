@@ -42,5 +42,24 @@ c.NotebookApp.password = u'sha:ce...刚才复制的hash'
 c.NotebookApp.open_browser = False 
 c.NotebookApp.port =8888
 
+## magic methods
+
+1. %：行 Magic 命令， 仅应用于编写 Magic 命令时所在的行；
+2. %%：cell Magic 命令， 应用于整个cell (单元格)；
+3. 把不同内核的代码结合到一个notebook里运行。
+只需在每个单元格的起始，用Jupyter magics调用kernal的名称：
+%%bash %%HTML %%python2 %%python3 %%ruby %%perl
+
+* %matplotlib inline
+* %who
+* %%time cell内代码的单次运行时间信息。
+* %%timeit 运行多次取最短
+* %%writefile XX.py 保存cell内容到外部文件
+* %pycat 显示外部脚本的内容
+* %prun 程序中每个函数消耗的时间 
+* %pdb 
+
+
+
 # setuptools
 
