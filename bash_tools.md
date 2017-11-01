@@ -1,6 +1,29 @@
+# cp mv rm
+cp -R 
+
 # kill
 kill %任务号
 kill pid
+
+# groups
+groups [user]
+
+## chmod
+mkdir abc
+* chmod 755 abc：赋予abc权限rwxr-xr-x
+  
+* chmod u=rwx,g=rx,o=rx abc：u=用户权限，g=组权限，o=不同组其他用户权限，注意是逗号而不是空格
+* chmod u-x,g+w abc：给abc去除用户执行的权限，增加组写的权限
+* chmod a+r abc：给所有用户添加读的权限
+
+## chown chgrp
+改变所有者（chown）和用户组（chgrp）命令
+* chown xiaoming abc：改变abc的所有者为xiaoming
+* chown root ./abc：改变abc这个目录的所有者是root
+* chown ‐R root ./abc：改变abc这个目录及其下面所有的文件和目录的所有者是root。
+  - R 递归式地改变指定目录及其下的所有子目录和文件的拥有者。
+* chgrp root abc：改变abc所属的组为root
+
 
 # sort
 sort(选项)(参数,filename)
@@ -30,57 +53,6 @@ FStart.CStart 选项 , FEnd.CEnd 选项
 - 第三组r--：不与文件所有者同组的其他用户的权限是读不能写和执行
 - 0表示没有权限，1表示可执行权限，2表示可写权限，4表示可读权限，然后将其相加组成3位数来表示权限
 
-## chmod
-mkdir abc
-* chmod 755 abc：赋予abc权限rwxr-xr-x
-  
-* chmod u=rwx,g=rx,o=rx abc：u=用户权限，g=组权限，o=不同组其他用户权限，注意是逗号而不是空格
-* chmod u-x,g+w abc：给abc去除用户执行的权限，增加组写的权限
-* chmod a+r abc：给所有用户添加读的权限
-
-## chown chgrp
-改变所有者（chown）和用户组（chgrp）命令
-* chown xiaoming abc：改变abc的所有者为xiaoming
-* chown root ./abc：改变abc这个目录的所有者是root
-* chown ‐R root ./abc：改变abc这个目录及其下面所有的文件和目录的所有者是root。
-  - R 递归式地改变指定目录及其下的所有子目录和文件的拥有者。
-* chgrp root abc：改变abc所属的组为root
-
-# awk
-* awk '{print $3 "\t" $4}' marks.txt 打印第三列和第四列，从1开始
-* awk '/a/ {print $0}' marks.txt 判断每一行中是否包含a，如果包含则打印该行。$0表示当前行，body 缺失会默认执行打印，所以等价于awk '/a/' marks.txt
-* $ awk '/a/ {print $4 "\t" $1}' marks.txt 打印匹配行的3、4列
-* awk '/a/{++cnt} END {print "Count = ", cnt}' marks.txt 统计匹配上的行数
-
-## 内置变量
-* ARGC               命令行参数个数
-* ARGV               命令行参数排列
-* ENVIRON            支持队列中系统环境变量的使用
-* FILENAME           awk浏览的文件名
-* FNR                浏览文件的记录数
-* NF                 浏览记录的域的个数
-* NR                 已读的记录数
-* FS                 设置输入域分隔符，等价于命令行 -F选项
-* OFS                输出域分隔符
-* ORS                输出记录分隔符(行)
-* RS                 控制记录分隔符(行)
-
-## 双向管道
-使用|&进行双向连接，发送数据到另一个程序处理，然后读取处理结果。
-
-## demo
-### 更改分隔符
-'BEGIN {FS="\t";OFS="|"} { print $1, $2, $3}' 修改输入分隔符为','输出分隔符为'|'
-
-### 输出标题行和符合条件的行
-'BEGIN { FS="\t" } NR ==1 || ($5 == "Female" && $4 ~ /@facebook\.com$/) { print $0 }'
-~ 是正则匹配操作符，/ / 里面是正则表达式。最后一个$在正则表达式中表示行的结尾。
-### first 100
-NR == 1, NR == 100 { print $0 }
-### 引号
-* 双引号：awk 'BEGIN{print "\""}' 要print的内容用双引号包围
-* 单引号：awk 'BEGIN{print "'\''"}'
-
 
 # grep
 ## 参数
@@ -91,26 +63,30 @@ NR == 1, NR == 100 { print $0 }
 * -s 不显示错误信息
 * -E 使用扩展正则表达式
 
-# find 
--cmin<分钟>：查找在指定时间之时被更改过的文件或目录；
--cnewer<参考文件或目录>查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录； 
--ctime<24小时数>：查找在指定时间之时被更改的文件或目录，单位以24小时计算；
--atime<24小时数>：查找在指定时间曾被存取过的文件或目录，单位以24小时计算；
--user<拥有者名称>：查找符和指定的拥有者名称的文件或目录；
+# find
+## -name 
+文件名
 
-## find . -type 类型参数
+## -type 类型参数
 f 普通文件 l 符号连接 d 目录 c 字符设备 b 块设备 s 套接字
+
 ## -regix
 find . -regex ".*\(\.txt\|\.pdf\)$"
 -iregix 忽略大小写
 ## -maxdepth 3
 向下最大深度为3
-## sample
+## demo
 find /home -iname "*.txt" home下txt文件，忽视大小写
 find . -type f -newer file.log 找出比file.log修改时间更长的所有文件
 find . -type f -name "*.php" ! -perm 644 找出当前目录下权限不是644的php文件
 find . -type f -group sunk 找出当前目录用户组sunk拥有的所有文件
 
+## other
+* -cmin<分钟>：查找在指定时间之时被更改过的文件或目录；
+* -cnewer<参考文件或目录>* 查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录； 
+* -ctime<24小时数>：查找在指定时间之时被更改的文件或目录，单位以24小时计算；
+* -atime<24小时数>：查找在指定时间曾被存取过的文件或目录，单位以24小时计算；
+* -user<拥有者名称>：查找符和指定的拥有者名称的文件或目录；
 
 # xargs
 通常和find一起使用

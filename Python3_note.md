@@ -14,6 +14,9 @@
 * min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
 * l[1:9:-1] 取区间[1, 9)，取步长为-1的时候返回空集
 * l[9:1:-1] 取区间[9, 1), 取步长为-1的时候返回9到2
+* sys.argv[0] 脚本名 sys.argv[1] 第一个参数
+* import copy copy.copy() copy.deepcopy() 深拷贝和浅拷贝 
+* isinstance(obj,type)
 
 # import
 import使一个变量名引用整个模块对象，因此必须通过模块名称来得到该模块的属性（例如，module1.printer）。而from会把变量名复制到另一个作用域，所以它就可以直接在脚本中使用复制后的变量名，而不用通过模块

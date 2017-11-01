@@ -18,7 +18,16 @@ pip install --user follows four rules:
 * pip search "query"
 
 # conda
-
+* conda create -n env_name numpy matplotlib python=3.6
+* conda remove -n env_name --all
+* activate env_name
+* deactivate env_name
+* conda install -n env_name pandas
+* conda list
+* conda list -n env_name 指定查看某环境下安装的package
+* conda remove numpy
+* conda update numpy
+* conda search numpy
 
 # juypter
 ## run 
@@ -32,7 +41,8 @@ In [1]: from notebook.auth import passwd
 In [2]: passwd()
 Enter password:  
 Verify password:  
-Out[2]: 'sha1:ce23d945972f:34769685a7ccd3d08c84a18c63968a41f1140274' # 生成hash值
+Out[2]: 'sha1:ce23d945972f:34769685a7ccd3d08c84a18c63968a41f1140274' # 
+生成hash值
 这里如果无法打开ipython，可以直接用命令行
 root@docker_admin:~# python -c "import IPython;print IPython.lib.passwd()" 
 3. 修改config文件
@@ -41,6 +51,9 @@ c.NotebookApp.ip='*'
 c.NotebookApp.password = u'sha:ce...刚才复制的hash'
 c.NotebookApp.open_browser = False 
 c.NotebookApp.port =8888
+
+## jupyter theme
+
 
 ## magic methods
 
@@ -58,7 +71,6 @@ c.NotebookApp.port =8888
 * %pycat 显示外部脚本的内容
 * %prun 程序中每个函数消耗的时间 
 * %pdb 
-
 
 
 # setuptools

@@ -133,11 +133,6 @@ numpy.random.seed()
 *　Svd分解：np.linalg.svd(A)
 
 
-# 稀疏矩阵
-scipy.sparse.coo_matrix是三元组，不能按行也不能按列切片
-to_csr  是按行压缩的稀疏矩阵，按行切片比较快，可以按列切片
-to_csc 是按列压缩的稀疏矩阵，按列切片比较快，可以按行切片
-
 # 多项式 
 * 多项式拟合：poly= np.polyfit(x,a,n),拟合点集a得到n级多项式，其中x为横轴长度，返回多项式的系数
 * 多项式求导函数：np.polyder(poly),返回导函数的系数

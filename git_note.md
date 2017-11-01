@@ -69,9 +69,27 @@ git log file
 git revert 是生成一个新的提交来撤销某次提交，此次提交之前的commit都会被保留
 git reset 是回到某次提交，提交及之前的commit都会被保留，但是此次之后的修改都会被退回到暂存区
 
+## stash
+可以获取你工作目录的中间状态——也就是你修改过的被追踪的文件和暂存的变更——并将它保存到一个未完结变更的堆栈中，随时可以重新应用。
+* git stash
+* git stash list
+* git stash apply
+* git stash pop 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。
+* git stash clear 清空stash列表
+
 
 # 常用操作
 ## 合并远程分支
 假设这两个分支是a和b，那么fetch a和b，checkout a，将b merge到a，push a到远端。这样做，将b和a合到了一起，并且更新了本地和远端的a。
 pycharm中
 checkout到本地的master上，在master上去merge dev
+
+## gitignore
+已经开始进行版本管理的文件不会受到gitignore的影响
+/dir/ 忽略当前目录下的dir文件夹
+dir/ 忽略所有的dir文件夹
+*.zip 过滤所有.zip文件
+
+gitignore还可以指定要将哪些文件添加到版本管理中：
+!*.zip
+!/dir/one.txt

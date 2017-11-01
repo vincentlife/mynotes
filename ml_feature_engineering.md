@@ -1,6 +1,19 @@
 # Exploratory Data Analysis
 
 # Feature Engineering
+## 定性特征
+sklearn.preprocessing.OneHotEncoder ，用于定性特征的哑编码（One-Hot Encoding）。运行结果与LabelBinarizer相似，不过在参数以及输入输出的格式上有细微的差别，参见文档。输出的矩阵是稀疏的，含有大量的0。
+
+统计学中，哑编码的变种还有effects coding、contrast coding、nonsense coding等编码方式，但在数据挖掘中都不常用。
+
+定性特征的基数（cardinality）指的是这个定性特征所有可能的不同值的数量。高基数定性特征的例子：IP地址、电子邮件域名、城市名、家庭住址、街道、产品号码。可以尝试使用平均数编码（mean encoding）的编码方法，在贝叶斯的架构下，利用所要预测的应变量（target variable），有监督地确定最适合这个定性特征的编码方式。
+
+
+
+
+
+
+
 ## Preprocessing
 
 ## Feature
