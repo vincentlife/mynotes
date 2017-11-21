@@ -17,6 +17,7 @@
 * sys.argv[0] 脚本名 sys.argv[1] 第一个参数
 * import copy copy.copy() copy.deepcopy() 深拷贝和浅拷贝 
 * isinstance(obj,type)
+* 保留小数 方法一： print(round(a/b,2)) 方法二：print(format(float(a)/float(b),'.2f'))
 
 # import
 import使一个变量名引用整个模块对象，因此必须通过模块名称来得到该模块的属性（例如，module1.printer）。而from会把变量名复制到另一个作用域，所以它就可以直接在脚本中使用复制后的变量名，而不用通过模块

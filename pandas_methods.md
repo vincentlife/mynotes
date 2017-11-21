@@ -1,8 +1,10 @@
-# IO
+# DataFrame & Series
+## basic
+### init 
+* DataFrame(np.ndarray,index=,columns=) # index 是行索引 columns是列名
+* Series(data=,index=,dtype=,name=)
 
-## DataFrame()
-DataFrame(np.ndarray,index=,columns=) # index 是行索引 columns是列名
-## read_csv()
+### read_csv()
 * sep : str, default ‘,’
 指定分隔符。如果不指定参数，则会尝试使用逗号分隔。分隔符长于一个字符并且不是‘\s+’,将使用python的语法分析器。并且忽略数据中的逗号。正则表达式例子：'\r\t'
 delimiter : str, default None
@@ -22,58 +24,91 @@ delimiter : str, default None
 需要忽略的行数（从文件开始处算起），或需要跳过的行号列表（从0开始）。
 
 ### to_csv()
+* path_or_buf : string or file handle, default None
+File path or object, if None is provided the result is returned as a string.
+* sep : character, default ‘,’
+Field delimiter for the output file.
+* na_rep : string, default ‘’
+Missing data representation
+* columns : sequence, optional
+Columns to write
+* header : boolean or list of string, default True
+* index : boolean, default True Write row names (index)
+* index_label : string or sequence, or False, default None
+Column label for index column(s) if desired. If None is given, and header and index are True, then the index names are used. A sequence should be given if the DataFrame uses MultiIndex. If False do not print fields for index names. 
+* line_terminator : string, default '\n'
+The newline character or character sequence to use in the output file
+
+### df.columns & df.index 
+为pandas的索引类型
+df.columns[0] 获取列名
+df.columns[[0,1,2]] 获取列名,返回索引类型,需要tolist()转换成list 形式 
+df.index 同理
+se只有index
 
 
-# 工具类
-## cut qcut
-* pd.cut() 拆成bin： bins = [18, 25, 35, 60, 100] cats = pd.cut(ages, bins)
-返回一个特殊的Categorical对象，levels为分类名称，labels为结果。
-* pd.qcut(df['Column'], 4) 根据样本分位数对数据进行bin划分,大小基本相等
+### df.values 
+ndarry类型
+df.values[:, :] 进行分片
+series.values 也是ndarray
+### 遍历
++ for colname in df 列名
++ df.iterrows() 
+返回一个tuple (index, Series)，这里index 为行索引
++ df.iteritems() 迭代器对象，返回(index, Series)  这里index 为列索引
++ se.iteritems() 返回(index,value)
 
-## concat merge join
-其中merge和join也可以通过
-* pd.concat([example1, example2], axis=1) 沿轴拼接，axis=1为纵向
-pieces = [df[:3], df[3:7], df[7:]]; pd.concat(pieces)
-* pd.merge(left, right, on='key') 通过键拼接列，键为列名
+### clean
+* df.drop_duplicates(subset=None, keep='first', inplace=False)
+subset : column label or sequence of labels, optional
+keep : {‘first’, ‘last’, False}, default ‘first’
+inplace : boolean, default False
+* df.dropna()
+
+### join
+    DataFrame.join(other, on=None, how='left', lsuffix='', rsuffix='', sort=False)[source]
+on : column name, array-like column names, 是None则用index
+* left: use calling frame’s index (or column if on is specified)
+* right: use other frame’s index
+* outer: form union of calling frame’s index (or column if on is specified) with * other frame’s index, and sort it lexicographically
+* inner: form intersection of calling frame’s index (or column if on is specified) with other frame’s index, preserving the order of the calling’s one
+
+### merge
+    DataFrame.merge(right, how='inner', on=None, left_on=None, right_on=None, left_index=False, right_index=False, sort=False, suffixes=('_x', '_y'), copy=True, indicator=False, validate=None)
+
+### pd.concat() 
+沿轴拼接 pd.concat([example1, example2], axis=1) 
+
+### other
+* reset_index(drop=True) drop=True表示列中不包含索引
+* df["A"].astype(numpy.dtype) 将数据转换成numpy.dtype
 
 
-# DataFrame
-## IO 
-### df.values[:, :]
-dataframe转化为numpy.ndarray 
+## 操作
+### 增
+尽力避免incrementally build a dataframe
+* df.append(s, ignore_index=True) 添加行 
+* df["new_column"] = s 添加列 其中列的index需要和df的column一致
+* df.insert(loc=,column=,value= )
 
-## new DataFrame
-
-
-## 查
-+ df.columns[[0,1,2]] 获取列名 
-+ df.
-+ df['A'] 获取A列，等价于 df.A
+### 查
++ df['A'] 获取A列，等价于 df.A 返回Series类型
 + df.loc[:,['A','B']] 按标签查询。格式为行，列。需要注意的是，dataframe的索引[1:3]是包含1,2,3的，与一般python不同。
 + df.iloc[3:5,0:2] 按位置查询，或者df.iloc[[1,2,4],[0,2]]。
 + df.at[rows[0],'A'] 获取标量值，等价于df.loc[rows[0],'A']
 + df.iat[1,1]可获取标量
 + df.ix(1) df.ix('e') 混合索引,先用loc的方式来索引，索引失败就转成iloc的方式
-+ df.iterrows() 返回(index, Series)对,可对DataFrame进行遍历。for循环遍历数据时一定要使用.iterrows()，或用.values()转换成ndarray再遍历，否则遍历的只是df的columns names。
 
-## 增
-* 添加行 s = df.iloc[3]  df.append(s, ignore_index=True)
-* 添加列 df["new_column"] = s
-* join
+### 删
+* df.drop(["column"],axis=1) axis=1是删除列
+* df.drop(df.columns[[0,1]],axis=1) 删除0,1 列
 
-## 删
-del()
-df.drop(["column"],axis=1) axis=1是删除列
-df.drop(df.columns[[0,1]],axis=1) 删除0,1 列
-
-## 改
+### 改
 * df.at[dates[0],'A'] = 0 按标签赋值
 * df.iat[0,1] = 0 按位置赋值
 * df.loc[:,'D'] = np.array([5] * len(df)) 按列赋值
 * df2[df2 > 0] = -df2 赋值
 
-## 数据处理
-### 
 
 ### 布尔索引
 根据true false系列来索引，demo：
@@ -88,42 +123,48 @@ df.drop(df.columns[[0,1]],axis=1) 删除0,1 列
 * df.isnull() 或者 pd.isnull(df) 返回true false 
 * df.drop_duplicates() 去重
 
-### 转换
+### apply(func=,axis=)
+func接收依据axis确定的series，若func返回series类型则apply返回dataframe类型，若其它类型则apply返回series类型 
+
+### 其他
 * df.map({}) 传入字典或函数。df['food'].map(str.lower).map({'A':'ab'}})
 * df.replace() data.replace([-999, -1000], np.nan)
-* reset_index(drop=True) drop=True表示列中不包含索引
-* astype(numpy.dtype) 将数据转换成numpy.dtype
-
 计算时一般不包括丢失的数据
 * df.T 转置
 * df.sort_index(axis=1, ascending=False) 按轴排序
 * df.sort_values(['A','B'],ascending=True) 按值排序
-* df.apply() 在数据上使用函数
 * df.mean() 
+* pd.cut() 拆成bin： bins = [18, 25, 35, 60, 100] cats = pd.cut(ages, bins)
+返回一个特殊的Categorical对象，levels为分类名称，labels为结果。
+* pd.qcut(df['Column'], 4) 根据样本分位数对数据进行bin划分,大小基本相等
 
 ### 分组 
+#### groupby
 df.groupby(by=,as_index=)
 * by = ["A"] 或 ["A","B"]传入多个结果会显示多个
 * as_index True or False 传入的列是否作为索引显示
 返回 groupby Object，此时未进行任何计算，groupby Object有以下方法:
 * mean() 分组平均值 返回dataFrame
 * size() 每组个数
+* get_group()
+* agg(func) 对分组后的数据应用func函数,agg函数内调用的函数只能对分组进行聚合使用
+* apply(func) func(df)接收一个DataFrame对象，该对象包含组内的数据
+
+#### pivot_table
 
 
 ### 统计作图
-* df.index df.columns df.values values是将原本dataframe数据强制转化为numpy格式的数据来索引
 * df.describe()
 * pd.crosstab(df["column1","column2"])
-* df.value_counts()
-* df.groupby() 生成一个groupby对象，可调用其mean方法来计算分组平均值,size()返回大小。 dict(list(df.groupby('key1')))可以做成字典。
-*  data.boxplot(column="ApplicantIncome",by="Loan_Status") 
-*  data.hist(column="ApplicantIncome",by="Loan_Status",bins=30) 
+* data.boxplot(column="ApplicantIncome",by="Loan_Status") 
+* data.hist(column="ApplicantIncome",by="Loan_Status",bins=30) 
 
 
-# Series
-相当于是一维的DataFrame
+## Series操作
+### 方法
+* value_counts() 统计各类的数目
 
-## str
+### str
 提供字符串处理方法，NA值依然为NA
 * s.str.split("_")
 * s.str.lower()
@@ -131,16 +172,6 @@ df.groupby(by=,as_index=)
 * s.str.contains
 * s.str.get()
 * s.str.pad() 左右补齐 
-
-## 
-* value_counts 给出各个值的统计
-* str
-
-## 增删改查
-* 遍历 s.iteritems() 返回(index, value)对
-对dataframe数据的index统一加一个后缀
-
-比如对原本dataframe下的index=[‘aa’, ‘cc’, ‘dddddd’]的，统一加上一个_5m的后缀，通常的操作大家一般就是直接example.index = [x + ‘_5m’ for x in example.index]，这个其实会产生些小问题，因为默认的index是pandas.indexes.base.Index，这个格式可能会默认index里面数据的长度是确定的，导致加_5m后缀失败，所以需要先把格式强制转化为list, 像这样：example.index = [x + ‘_5m’ for x in list(example.index)]
 
 # Categorical
 

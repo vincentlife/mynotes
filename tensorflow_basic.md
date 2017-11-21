@@ -7,10 +7,6 @@
 * shape：tensor的形状（返回的是tf.TensorShape这个表示tensor形状的类） 
 * value_index:表示这个tensor在其操作结果中的索引
 
-## tensor.eval(session = sess)
-获取张量的值
-## tensor.get_shape()
-获取维度，是一个Dimension类型的对象，可以用input.get_shape().as_list()[-1]来转换成list
 
 ## start
 为了便于在 IPython 等交互环境使用 TensorFlow，需要用 InteractiveSession 代替 Session 类,sess = tf.InteractiveSession()
@@ -21,6 +17,14 @@ sess.run() 执行操作,如assign.MatMul等
 
 init = tf.global_variables_initializer()，是预先对变量初始化，
 Tensorflow 的变量必须先初始化，然后才有值。而常值张量是不需要的。
+
+### tensor.eval(session = sess)
+获取张量的值
+### tensor.get_shape()
+获取维度，是一个Dimension类型的对象，可以用input.get_shape().as_list()[-1]来转换成list。get_shape()不需要放在session中即可运行。
+### tf.shape()
+tf.shape()需要在session中运行
+
 
 ## IO
 * tf.constant()
@@ -119,6 +123,7 @@ tf.concat([t1, t2], 1) ==> [[1, 2, 3, 7, 8, 9], [4, 5, 6, 10, 11, 12]]
 ### tf.reshape()
 tf.reshape(tensor, shape, name = None)
 shape中-1的那一维将由其它维infer出，当tensor是scalar，shape =  [] reshapes to a scalar 
+tensor.set_shape()区别：set_shape更新tensor的static shape，不改变dynamic shape。reshape创建一个具备不同dynamic shape的新的tensor。
 
 ### tf.transpose
     transpose(a,perm=None,name='transpose')
@@ -147,7 +152,7 @@ adjoint: conjugated and transposed before multiplication.
 
 ### tf.multiply
     multiply(x, y, name=None)
-每个元素相乘
+每个元素相乘，乘号* 和 multiply等价
 y: A Tensor. Must have the same type as x
 Returns: A Tensor. Has the same type as x
 
@@ -157,6 +162,13 @@ sample:
 
     z = tf.multiply(a, b)
     result = tf.cond(x < y, lambda: tf.add(x, z), lambda: tf.square(y)) 
+
+## 其它
+### tf.select
+
+### tf.less
+
+### tf.cast
 
 # distribution
 ## Multinomial

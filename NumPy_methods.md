@@ -112,6 +112,13 @@ rand(d1,d2,d3,...) 生成指定shape的0,1范围内的随机数
 产生N个正态分布的随机数：np.random.normal(均值，标准差，N)
 产生N个对数正态分布的随机数：np.random.lognormal(mean,sigma,N)
  multivariate_normal
+
+## multivariate_normal
+* mean : 1-D array_like, of length N
+* cov : 2-D array_like, of shape (N, N)
+Covariance matrix of the distribution. It must be symmetric and positive-semidefinite for proper sampling.
+* size : int or tuple of ints, optional
+
 ## choice
 numpy.random.choice(array, size=None, replace=True, p=None)
 从一个int数字或1维array里随机选取内容，如果是int则视作np.arange(n)，并将选取结果放入维度为size的array中返回，当replace为False时，生成的随机数不能有重复的数值，p为array中的元素指定概率。
