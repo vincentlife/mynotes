@@ -2,7 +2,12 @@
 ## basic
 ### init 
 * DataFrame(np.ndarray,index=,columns=) # index 是行索引 columns是列名
-* Series(data=,index=,dtype=,name=)
+* Series(data=,index=,dtype=,name=) 其中data可以为dictionary Categorical 生成器对象等
+
+### 字符串读入
+from io import StringIO
+newfile = StringIO(content.decode("utf-8")) # python 2
+newfile = StringIO(content) # python 3
 
 ### read_csv()
 * sep : str, default ‘,’
@@ -46,11 +51,15 @@ df.columns[[0,1,2]] 获取列名,返回索引类型,需要tolist()转换成list 
 df.index 同理
 se只有index
 
+* df.set_index(keys, drop=True, append=False, inplace=False, verify_integrity=False)
+* 
+
 
 ### df.values 
 ndarry类型
 df.values[:, :] 进行分片
 series.values 也是ndarray
+
 ### 遍历
 + for colname in df 列名
 + df.iterrows() 
@@ -58,12 +67,10 @@ series.values 也是ndarray
 + df.iteritems() 迭代器对象，返回(index, Series)  这里index 为列索引
 + se.iteritems() 返回(index,value)
 
-### clean
-* df.drop_duplicates(subset=None, keep='first', inplace=False)
-subset : column label or sequence of labels, optional
-keep : {‘first’, ‘last’, False}, default ‘first’
-inplace : boolean, default False
-* df.dropna()
+### 类型转换
+* df["A"].astype(numpy.dtype) 将数据转换成numpy.dtype
+* df.infer_objects() 如果数据很多无法判断数据类型,推断类型
+* pd.to_numeric 把所有的变量都变成了float64
 
 ### join
     DataFrame.join(other, on=None, how='left', lsuffix='', rsuffix='', sort=False)[source]
@@ -79,17 +86,15 @@ on : column name, array-like column names, 是None则用index
 ### pd.concat() 
 沿轴拼接 pd.concat([example1, example2], axis=1) 
 
-### other
-* reset_index(drop=True) drop=True表示列中不包含索引
-* df["A"].astype(numpy.dtype) 将数据转换成numpy.dtype
-
 
 ## 操作
 ### 增
 尽力避免incrementally build a dataframe
 * df.append(s, ignore_index=True) 添加行 
-* df["new_column"] = s 添加列 其中列的index需要和df的column一致
+* df.add(other=, axis=, fill_value=, level= ) other可以是Series和DataFrame，返回DataFrame
+* df["new_column"] = s 添加列 其中列的index需要和df的column一致。 尽量避免这种方式，采用df2.loc[:, 'd'] = d
 * df.insert(loc=,column=,value= )
+* df.assign(name = Series) 推荐方式，增加新列,返回一个新的DataFrame
 
 ### 查
 + df['A'] 获取A列，等价于 df.A 返回Series类型
@@ -116,27 +121,55 @@ on : column name, array-like column names, 是None则用index
 * df2[df2['E'].isin(['two','four'])]
 * data.loc[(data["Gender"]=="Female") & (data["Education"]=="Not Graduate") & (data["Loan_Status"]=="Y"), ["Gender","Education","Loan_Status"]]
 
-### 统计
-* df["A"].count() df.count() 统计非空数量
-* df.dropna(how='any')
-* df.fillna()
-* df.isnull() 或者 pd.isnull(df) 返回true false 
-* df.drop_duplicates() 去重
-
-### apply(func=,axis=)
+### apply系列
+apply 既可以操作 DataFrame数据，也可以操作Series数据。
+apply(func=,axis=)
 func接收依据axis确定的series，若func返回series类型则apply返回dataframe类型，若其它类型则apply返回series类型 
+
+applymap 不分行、列，对所有元素进行操作。 
+操作对象可以是DataFrame 或者 Series
+
+map 仅面向 Series 类型数据
+
+
 
 ### 其他
 * df.map({}) 传入字典或函数。df['food'].map(str.lower).map({'A':'ab'}})
 * df.replace() data.replace([-999, -1000], np.nan)
 计算时一般不包括丢失的数据
+* df.count() 统计非空
 * df.T 转置
 * df.sort_index(axis=1, ascending=False) 按轴排序
 * df.sort_values(['A','B'],ascending=True) 按值排序
+* idxmax() idxmin(axis) 返回最大值/最小值的index
+* isin(list-like) 返回True False的series判断是否在list中
 * df.mean() 
-* pd.cut() 拆成bin： bins = [18, 25, 35, 60, 100] cats = pd.cut(ages, bins)
+* df.corr(method='pearson', min_periods=1) min_periods 表示需要的最小observations的数目
+
+### 特征工程相关
+* df.describe()
+* pd.crosstab(df["column1","column2"])
+* df["A"].count() df.count() 统计非空数量
+* df.dropna(how='any')
+* df.fillna()
+* df.isnull() 或者 pd.isnull(df) 返回true false 的dataframe notnull同理 
+* df.drop_duplicates(subset=None, keep='first', inplace=False)
+subset : column label or sequence of labels, optional
+keep : {‘first’, ‘last’, False}, default ‘first’
+inplace : boolean, default False
+
+### cut
+pd.cut(x, bins, right=True, labels=None, retbins=False, precision=3, include_lowest=False) 
+* bins： int 或者是 
+bins = [18, 25, 35, 60, 100] cats = pd.cut(ages, bins)
 返回一个特殊的Categorical对象，levels为分类名称，labels为结果。
+
+
+### qcut
 * pd.qcut(df['Column'], 4) 根据样本分位数对数据进行bin划分,大小基本相等
+* pd.get_dummies(data, prefix=None, prefix_sep='_', dummy_na=False, columns=None, sparse=False, drop_first=False)
+ data array-like, Series, or DataFrame
+return DataFrame or SparseDataFrame
 
 ### 分组 
 #### groupby
@@ -153,22 +186,34 @@ df.groupby(by=,as_index=)
 #### pivot_table
 
 
-### 统计作图
-* df.describe()
-* pd.crosstab(df["column1","column2"])
-* data.boxplot(column="ApplicantIncome",by="Loan_Status") 
-* data.hist(column="ApplicantIncome",by="Loan_Status",bins=30) 
+### plot
+plot(kind="",) 或直接plot.hist
+kind : str
+    ‘line’ : line plot (default)#折线图
+    ‘bar’ : vertical bar plot#条形图
+    ‘barh’ : horizontal bar plot#横向条形图
+    ‘hist’ : histogram#柱状图
+    ‘box’ : boxplot#箱线图
+    ‘kde’ : Kernel Density Estimation plot#Kernel   的密度估计图，主要对柱状图添加Kernel 概率密度线
+    ‘density’ : same as ‘kde’
+    ‘pie’ : pie plot#饼图
+    ‘scatter’ : scatter plot#散点图
+
+plot参数:
+figsize: tuple (10,10)
+
 
 
 ## Series操作
 ### 方法
 * value_counts() 统计各类的数目
 
+
 ### str
 提供字符串处理方法，NA值依然为NA
 * s.str.split("_")
 * s.str.lower()
-* s.str.extract(' ([A-Za-z]+)\.', expand=False) 根据正则来提取字符串
+* s.str.extract(' ([A-Za-z]+)\.', expand=False) 根据正则来提取字符串expand=True返回DataFrame
 * s.str.contains
 * s.str.get()
 * s.str.pad() 左右补齐 

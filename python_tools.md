@@ -14,6 +14,8 @@ pip install --user follows four rules:
 
     - In a --system-site-packages virtualenv, pip will not install a package that conflicts with a package in the virtualenv site-packages. The --user installation would lack sys.path precedence and be pointless. 
 
+安装到 $HOME/.local 路径下
+
 * pip show
 * pip search "query"
 
@@ -52,8 +54,18 @@ c.NotebookApp.password = u'sha:ce...刚才复制的hash'
 c.NotebookApp.open_browser = False 
 c.NotebookApp.port =8888
 
-## jupyter theme
+## ipykernel
+为jupyter增加新的内核
+在要增加的python环境下输入
 
+    python -m ipykernel install --user --name myenv --display-name 'Python(myevn_)"
+ --name 是给jupyter 启动Kernel 使用，如果指定的name已存在则会覆盖，--display-name 是为Jupyter notebook 菜单显示
+
+## jupyter theme
+pip install --upgrade jupyterthemes
+jt - l 查看主题
+jt -t 主题名称 使用主题
+jt -r 恢复默认
 
 ## magic methods
 

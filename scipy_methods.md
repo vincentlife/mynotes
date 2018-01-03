@@ -19,3 +19,10 @@ to_csr  是按行压缩的稀疏矩阵，按行切片比较快，可以按列切
 * （似乎)除了coo之外稀疏矩阵的存储格式，都可以进行slice操作 
 * sparce矩阵的读取。可以像常规矩阵一样通过下标读取。也可以通过getrow(i)，gecol(i)读取特定的列或者特定的行，以及nonzero()读取非零元素的位置。
 
+
+# scipy.stats
+## ks检验
+svalue,pvalue = ks_2samp(data1, data2)
+假设data1和data2来自同一分布，为H0。若p值大于0.05，则无法拒绝假设
+
+

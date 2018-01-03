@@ -3,6 +3,29 @@
 # Feature Engineering
 ## Preprocessing
 
+# Pipeline
+Pipleline中最后一个之外的所有estimators都必须是变换器（transformers），最后一个estimator可以是任意类型（transformer，classifier，regresser）
+如果最后一个estimator是个分类器，则整个pipeline就可以作为分类器使用，其他同理。
+
+## estimator获取
+pipe.steps[0]
+pipe.named_steps['pca']
+
+## 参数
+在pipeline中estimator的参数通过使用<estimator>__<parameter>
+语法来获取比如pipe.set_params(clf__C=10)
+可以进行调参，包括estimator本身, 
+params=dict(pca=[None,PCA(5),PCA(10)],clf=[SVC(),LogisticRegression()],
+            clf_C=[0.1,10,100])
+grid_research=GridSearchCV(pipe,param_grid=params)
+
+## make_pipeline
+接受可变数量的estimators并返回一个pipeline，每个estimator的名称自动填充
+make_pipeline(Binarizer(),MultinomialNB())
+
+
+# feature Union
+
 ## Feature
 
 # score

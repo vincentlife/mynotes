@@ -25,8 +25,7 @@
       
 ## 回归
 ### 可释方差值
-    ‘explained_variance’ 
-    metrics.explained_variance_score 
+metrics.explained_variance_score 
 explained_variance_score(y_true, y_pred, multioutput= ) 
 
 ### 平均绝对误差 MAE
@@ -45,9 +44,7 @@ median_absolute_error(y_true, y_pred)
 对异类（outliers）的情况是健壮的。该loss函数通过计算target和prediction间的绝对值，然后取中值得到。median_absolute_error不支持multioutput。
 
 ###  R方值，确定系数      
-
 * ‘r2’    metrics.r2_score
-
 
 ## others
 一些metrics不在scoring中提供，因为它可能需要额外参数,通过make_scorer来构造scorer传给scoring参数使用
@@ -60,7 +57,6 @@ median_absolute_error(y_true, y_pred)
 查看各个类别的情况
 classification_report(y_true, y_pred, target_names=target_names)
 
-
 # sklearn.externals.joblib
 from sklearn.externals.joblib import dump,load
 
@@ -68,6 +64,5 @@ dump(grid_search, 'grid_search.dmp', compress=3)
 第三个参数为压缩级别，0为不压缩，3为合适的压缩级别
 
 grid_search = load('grid_search.dmp')
-
 
 # sklearn.feature_selection

@@ -9,7 +9,6 @@
 * 使用zip()可进行两个变量的循环 for i,j in zip(range(2),range(2))
 * 交换变量 a,b = b,a
 * enumerate() for index，text in enumerate(list):
-* 列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
 * 使用dictionary实现switch dict = {key:arg} ,arg可以是function, dict.get(key,default) 
 * min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
 * l[1:9:-1] 取区间[1, 9)，取步长为-1的时候返回空集
@@ -19,9 +18,18 @@
 * isinstance(obj,type)
 * 保留小数 方法一： print(round(a/b,2)) 方法二：print(format(float(a)/float(b),'.2f'))
 
+# 列表推导
+列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
+x1 if c1 else x2 if c2 else x3 列表推导中的if else 嵌套
 # import
-import使一个变量名引用整个模块对象，因此必须通过模块名称来得到该模块的属性（例如，module1.printer）。而from会把变量名复制到另一个作用域，所以它就可以直接在脚本中使用复制后的变量名，而不用通过模块
+import使一个变量名引用整个模块对象，因此必须通过模块名称来得到该模块的属性（例如，module1.printer）。而from会把变量名复制到另一个作用域，所以它就可以直接在脚本中使用复制后的变量名，而不用通过模块。
 
+两种运行python的模式
+python xxx.py  直接运行
+python -m xxx.py 把模块当作脚本来启动
+
+直接启动是把run.py文件，所在的目录放到了sys.path属性中。
+模块启动是把你输入命令的目录（也就是当前路径），放到了sys.path属性中
 
 # attr
 ## getattr
@@ -32,26 +40,32 @@ import使一个变量名引用整个模块对象，因此必须通过模块名�
 如果有方法method，运行函数并打印None否则打印default
 
 
-
 # iterator constructor
-## yield
+生成器只能遍历一次
+* 生成器函数
+以yield代替return
+* 生成器表达式
+将列表推导的中括号，替换成圆括号，就是一个生成器表达式：(x**2 for x in range(5))
 
 
 # lambda
 lambda x:x+1
+if else 必须都有
+( lambda x, y: x if x < y else y )( 1, 2 ) 
+科里化
+( lambda x: ( lambda y: ( lambda z: x + y + z  )( 1 ) )( 2 ) )( 3 ) 
+递归 
+func = lambda n: 1 if n == 0 else n * func( n - 1 )
 
 
-## map
+## map filter reduce
+如果可以使用列表推导就不要用这三个方法
 * map(func,iterable)
-* 
-
-## filter
 * filter(func,iterable)
-* python 3 filter() 返回filter对象 需要list(filter)
-
-### reduce
+python 3 filter() 返回filter对象 需要list(filter)
 * reduce(lambda x, y: x + y, foo)
-* python3 需要 from functools import reduce 
+python3 需要 from functools import reduce 
+
 
 # Decorator
 ## @property
