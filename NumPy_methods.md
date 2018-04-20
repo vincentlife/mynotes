@@ -44,6 +44,7 @@ reshape中的一个维度可以为-1，这个维度将被推断出。
 * 水平组合hstack((a,b))或concatenate（（a,b）,axis=1）;
 * 垂直组合vstack((a,b))或concatenate（（a,b）,axis=0）;
 * 深度组合dstack((a,b))
+* np.concatenate
 
 ## 分割
 * hsplit 
@@ -63,6 +64,10 @@ example = np.where(np.isnan(example), 0, example)
 根据b中元素作为索引，查找a中对应元素：np.take(a,b)一维
 数组中最小最大元素的索引：np.argmin(a)，np.argmax(a)
 多个数组的对应位置上元素大小的比较：np.maximum(a,b,c,…..)返回每个索引位置上的最大值，np.minimum(…….)相反
+
+## 其它常用
+* numpy.apply_along_axis(func1d, axis, arr, *args, **kwargs) axis为int型，在一个维度上
+* numpy.apply_over_axes(func, a, axes) axes为array_like, 在多个维度上
 
 ## 数组
 ndarray默认不使用矩阵运算，如果希望对数组进行矩阵运算的话需要调用相应的函数。而matrix默认使用矩阵运算。

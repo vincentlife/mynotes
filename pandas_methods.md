@@ -143,8 +143,11 @@ map 仅面向 Series 类型数据
 * df.sort_values(['A','B'],ascending=True) 按值排序
 * idxmax() idxmin(axis) 返回最大值/最小值的index
 * isin(list-like) 返回True False的series判断是否在list中
+
+### 计算类
 * df.mean() 
 * df.corr(method='pearson', min_periods=1) min_periods 表示需要的最小observations的数目
+* df.diff(periods=1, axis=0) 做一阶差分(连续相邻两项之差) periods 为移动的幅度
 
 ### 特征工程相关
 * df.describe()

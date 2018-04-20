@@ -86,4 +86,39 @@ jt -r 恢复默认
 
 
 # setuptools
+distutils 打包工具
+easy_install 安装工具
+
+wheel本质上是一个 zip 包格式，用于代替egg
+
+Python setup.py [command]
+## command
+* 固有命令(继承Command类)
+    build
+    build_ext 
+    install
+    bdist_egg
+    bdist_wheel (需要安装wheel包) 打包成wheel格式
+* 自定义命令
+继承Command类
+    继承上述类，调用父类的run方法
+
+## setup
+bdist_wheel调用过程：
+
+* 调用build，其中build _ext完成cython代码的编译  
+* 调用install  将dependencies 、版本、文件位置等信息写入egg-info 完成wheel打包
+
+1 ext_modules 
+  参数不传或传入列表为空时将按纯python进行操作
+  可以通过修改build_ext的子类中的extensions属性来修改
+
+2. packages 
+  参数不传或传入列表为空时py文件将不会被打包
+  可以用setuptools.find_packages()来找到所有含有__init__.py文件的包
+
+
+
+
+
 

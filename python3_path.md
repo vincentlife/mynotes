@@ -7,7 +7,8 @@
 * os.remove()——删除指定文件
 * os.rmdir()——删除指定目录
 * os.chdir()——改变目录到指定目录
-* os.mkdir()——创建目录 **注意**这样只能建立一层，要想递归建立可用：os.makedirs()
+* os.mkdir()——创建目录 **注意**这样只能建立一层
+* os.makedirs() 递归建立目录
 * os.system()——执行shell命令。
 * os.getgruops() 得到用户组名称列表 
 * os.getlogin() 得到用户登录名称 

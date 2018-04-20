@@ -2,27 +2,46 @@
 * ord(c) 返回一个Unicode字符的int类型的序号
 * chr(i) 与ord相反，返回Unicode字符
 
+# 优雅写法
+* 交换变量 a,b = b,a 或者给多个变量赋值 
+* min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
+* set的写法 set([]) ->  {} 称为set literal
+* 打开多个文件
+with open('file1') as f1, open('file2') as f2, open('file3') as f3: 或者
+with nested(open('file1'), open('file2'), open('file3')) as (f1,f2,f3):
+* 反向输出字符串 'test'[::-1]
+* l[1:9:-1] 取区间[1, 9)，取步长为-1的时候返回空集
+* l[9:1:-1] 取区间[9, 1), 取步长为-1的时候返回9到2
+* 使用dictionary实现switch dict = {key:arg} ,arg可以是function, dict.get(key,default)
+* for else语句 在for循环完整完成后才执行else；如果中途从break跳出，则连else一起跳出。
+
 # knowledge
 * // 取整除。 int 用/ 得到浮点数
 * float("inf"), float("-inf") 正负无穷。当涉及 > 和 < 运算时，
 所有数都比-inf大，所有数都比+inf小。+inf 和 +inf相等，-inf 和 -inf相等。利用 inf 乘以0会得到 not-a-number(NaN)。除了inf外的其他数除以inf，会得到0。
 * 使用zip()可进行两个变量的循环 for i,j in zip(range(2),range(2))
-* 交换变量 a,b = b,a
 * enumerate() for index，text in enumerate(list):
-* 使用dictionary实现switch dict = {key:arg} ,arg可以是function, dict.get(key,default) 
-* min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
-* l[1:9:-1] 取区间[1, 9)，取步长为-1的时候返回空集
-* l[9:1:-1] 取区间[9, 1), 取步长为-1的时候返回9到2
 * sys.argv[0] 脚本名 sys.argv[1] 第一个参数
 * import copy copy.copy() copy.deepcopy() 深拷贝和浅拷贝 
 * isinstance(obj,type)
 * 保留小数 方法一： print(round(a/b,2)) 方法二：print(format(float(a)/float(b),'.2f'))
+* 最大的int型 python3中为sys.maxsize (python2中为maxint) 最大的浮点数 float(‘inf’)
+* *args 为列表参数 ** kwargs 为字典参数 可以用这种形式传参给kwargs func(**{'a':1,'b':2})  
+* python 传参 如果传的参数类型是不可改变的，如基本类型，String类型、元组类型，函数内如需改变参数的值，则相当于重新新建了一个对象。
+
 
 # 列表推导
 列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
 x1 if c1 else x2 if c2 else x3 列表推导中的if else 嵌套
 # import
-import使一个变量名引用整个模块对象，因此必须通过模块名称来得到该模块的属性（例如，module1.printer）。而from会把变量名复制到另一个作用域，所以它就可以直接在脚本中使用复制后的变量名，而不用通过模块。
+可以被import语句导入的对象是以下类型：
+
+* 模块文件（.py文件）
+* C或C++扩展（已编译为共享库或DLL文件）
+* 包（包含多个模块）
+* 内建模块（使用C编写并已链接到Python解释器中）
+
+import使一个变量名引用整个模块对象，因此必须通过模块名称来得到该模块的属性（例如，module1.printer）。而from会把变量名复制到另一个作用域，所以它就可以直接在脚本中使用复制后的变量名，而不用通过模块。 
 
 两种运行python的模式
 python xxx.py  直接运行
@@ -47,6 +66,18 @@ python -m xxx.py 把模块当作脚本来启动
 * 生成器表达式
 将列表推导的中括号，替换成圆括号，就是一个生成器表达式：(x**2 for x in range(5))
 
+## itertools
+### product
+笛卡尔积 
+单个 itertools.product(lista, repeat = 2)
+两个 itertools.product(a,b)
+返回 itertools.product 迭代器对象
+
+### 排列 permutations
+itertools.permutations(iterableA, r)
+### 组合 combinations
+itertools.combinations(iterableA, r)
+itertools.combinations_with_replacement(iterable, r) 组合包含自身重复
 
 # lambda
 lambda x:x+1

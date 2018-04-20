@@ -4,6 +4,12 @@
 ## origin
 origin指向远端代码库，是一个名字。origin指向的是repository。可以通过git remote add name url 添加新的
 
+## 密码缓存
+git config --global credential.helper cache
+//Set the cache to timeout after 1 hour (setting is in seconds
+git config --global credential.helper 'cache --timeout=3600'
+
+
 # 创建
 ## config
 * git config -l 
