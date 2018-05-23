@@ -24,6 +24,13 @@
 * ‘v_measure_score’   metrics.v_measure_score  
       
 ## 回归
+* ‘explained_variance’    metrics.explained_variance_score     
+* ‘neg_mean_absolute_error’   metrics.mean_absolute_error  
+* ‘neg_mean_squared_error’    metrics.mean_squared_error   
+* ‘neg_mean_squared_log_error’    metrics.mean_squared_log_error   
+* ‘neg_median_absolute_error’ metrics.median_absolute_error    
+* ‘r2’    metrics.r2_score
+
 ### 可释方差值
 metrics.explained_variance_score 
 explained_variance_score(y_true, y_pred, multioutput= ) 

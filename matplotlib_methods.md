@@ -7,13 +7,12 @@
 添加子图：ax = fig.add_subplot(abc)
 
 plt.show()显示图像
-# 
-## 
-plt.xlabel(‘x’)，plt.ylabel(‘y’)，plt.title(‘…’)
-
-设置横轴上的主定位器：ax.xaxis.set_major_locator(…)
-
-添加网格线：plt.grid(True)
+## 坐标轴相关
+以下均有get set方法
+plt.title(‘…’)
+plt.xlabel(‘x’), plt.ylabel(‘y’)
+plt.xticks(x,x_groups) plt.yticks(y, y_group) 设置刻度对应的点的名称
+plt.grid(True) 添加网格线 
 
 
 ## annotation

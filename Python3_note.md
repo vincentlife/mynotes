@@ -2,8 +2,9 @@
 * ord(c) 返回一个Unicode字符的int类型的序号
 * chr(i) 与ord相反，返回Unicode字符
 
-# 优雅写法
+# pythonic code
 * 交换变量 a,b = b,a 或者给多个变量赋值 
+* sort(cmp=None, key=None, reverse=False cmp和key均为函数 reverse = True 降序
 * min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
 * set的写法 set([]) ->  {} 称为set literal
 * 打开多个文件
@@ -31,8 +32,10 @@ with nested(open('file1'), open('file2'), open('file3')) as (f1,f2,f3):
 
 
 # 列表推导
-列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
-x1 if c1 else x2 if c2 else x3 列表推导中的if else 嵌套
+* 列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
+* x1 if c1 else x2 if c2 else x3 列表推导中的if else 嵌套
+
+
 # import
 可以被import语句导入的对象是以下类型：
 
@@ -190,6 +193,28 @@ re.X    该标志通过给予你更灵活的格式以便你将正则表达式写
 ## collections.defaultdict()
 * 采用一个类型初始化d = defaultdict(list)当所访问的键不存在的时候，可以实例化一个值作为默认值。初始化：int：0，float: 0.0, str ""
 * 自定义默认值 dd = defaultdict(lambda x:0)
+
+## collections.OrderedDict
+使用OrderedDict会根据放入元素的先后顺序进行排序
+OrderedDict() 或OrderedDict.fromkeys(listlike,value) 根据listlike来创建列表 **注意**value没有经过copy，若是list会出问题。
+除普通字典外的方法:
+popitem(按照后进先出原则，删除最后加入的元素，返回key-value)
+pop(获取指定key的value，并在字典中删除)
+move_to_end(指定一个key，把对应的key-value移到最后)
+setdefault(获取指定key的value，如果key不存在，则创建)
+
+# io
+## io.StringIO
+StringIO经常被用来作为字符串的缓存，应为StringIO有个好处，他的有些接口和文件操作是一致的，也就是说用同样的代码，可以同时当成文件操作或者StringIO操作。
+s = StringIO() 或 s = StringIO("hello world")
+
+StringIO类中的方法： 
+read readline readlines write writeline 
+getvalue 此函数没有参数，返回对象s中的所有数据
+truncate 从读写位置起切断数据，参数size限定裁剪长度，缺省值为None。
+tell 返回当前读写位置
+seek seek(0) 注意在写入StringIO后指针移动了，需要将指针再seek到开头。
+close flush 
 
 # magic methods
 

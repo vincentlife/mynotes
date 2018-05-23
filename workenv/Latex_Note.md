@@ -1,4 +1,4 @@
- # 语法
+# 语法
 ## 图片
 \usepackage{graphicx}
 \includegraphics[height=高度]{图片文件名} 
