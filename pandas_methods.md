@@ -51,14 +51,20 @@ df.columns[[0,1,2]] 获取列名,返回索引类型,需要tolist()转换成list 
 df.index 同理
 se只有index
 
-* df.set_index(keys, drop=True, append=False, inplace=False, verify_integrity=False)
-* 
+* set_index(keys, drop=True, append=False, inplace=False, verify_integrity=False)
+* reset_index(level=None, drop=False, inplace=False, col_level=0, col_fill=”) 可以还原索引，从新变为默认的整型索引,drop为False的时候原索引成为一列 
+* reindex 不是修改pandas对象的索引，而只是修改索引的顺序，如果修改的索引不存在就会使用默认的None代替此行, 且不会修改原数组
 
 
-### df.values 
-ndarry类型
-df.values[:, :] 进行分片
-series.values 也是ndarray
+### df的值
+* df.values ndarry类型
+* df.values[:, :] 进行分片
+* series.values 也是ndarray
+
+* df["A"].astype(numpy.dtype) 将数据转换成numpy.dtype
+* df.infer_objects() 如果数据很多无法判断数据类型,推断类型
+* pd.to_numeric 把所有的变量都变成了float64
+
 
 ### 遍历
 + for colname in df 列名
@@ -66,11 +72,6 @@ series.values 也是ndarray
 返回一个tuple (index, Series)，这里index 为行索引
 + df.iteritems() 迭代器对象，返回(index, Series)  这里index 为列索引
 + se.iteritems() 返回(index,value)
-
-### 类型转换
-* df["A"].astype(numpy.dtype) 将数据转换成numpy.dtype
-* df.infer_objects() 如果数据很多无法判断数据类型,推断类型
-* pd.to_numeric 把所有的变量都变成了float64
 
 ### join
     DataFrame.join(other, on=None, how='left', lsuffix='', rsuffix='', sort=False)[source]

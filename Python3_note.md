@@ -23,17 +23,22 @@ with nested(open('file1'), open('file2'), open('file3')) as (f1,f2,f3):
 * 使用zip()可进行两个变量的循环 for i,j in zip(range(2),range(2))
 * enumerate() for index，text in enumerate(list):
 * sys.argv[0] 脚本名 sys.argv[1] 第一个参数
-* import copy copy.copy() copy.deepcopy() 深拷贝和浅拷贝 
 * isinstance(obj,type)
-* 保留小数 方法一： print(round(a/b,2)) 方法二：print(format(float(a)/float(b),'.2f'))
+* 保留小数 方法一： print(round(a/b,2)) 方法二：print(format(b,'.2f'))
 * 最大的int型 python3中为sys.maxsize (python2中为maxint) 最大的浮点数 float(‘inf’)
 * *args 为列表参数 ** kwargs 为字典参数 可以用这种形式传参给kwargs func(**{'a':1,'b':2})  
 * python 传参 如果传的参数类型是不可改变的，如基本类型，String类型、元组类型，函数内如需改变参数的值，则相当于重新新建了一个对象。
-
+* 下列对象的布尔值都是False：
+1. NONE 或 False(布尔类型)
+2. 所有的值为零的数 包括整型 浮点型等等
+3. ""(空字符串) [](空列表) ()(空元组) {}(空字典)
 
 # 列表推导
 * 列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
 * x1 if c1 else x2 if c2 else x3 列表推导中的if else 嵌套
+
+# copy
+copy.copy() copy.deepcopy() 深拷贝和浅拷贝
 
 
 # import

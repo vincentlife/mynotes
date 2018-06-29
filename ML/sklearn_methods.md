@@ -54,6 +54,7 @@ median_absolute_error(y_true, y_pred)
 * ‘r2’    metrics.r2_score
 
 ## others
+### make_scorer
 一些metrics不在scoring中提供，因为它可能需要额外参数,通过make_scorer来构造scorer传给scoring参数使用
 
 	from sklearn.metrics import fbeta_score, make_scorer
@@ -61,8 +62,10 @@ median_absolute_error(y_true, y_pred)
 可以构造自己的评价函数，接收预测list和真实list两个参数
 可以构造自己的scoring object 接收(estimator, X, y)
 
+### classification_report
 查看各个类别的情况
 classification_report(y_true, y_pred, target_names=target_names)
+
 
 # sklearn.externals.joblib
 from sklearn.externals.joblib import dump,load
