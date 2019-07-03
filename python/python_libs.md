@@ -1,3 +1,8 @@
+# pydensecrf
+    https://github.com/lucasb-eyer/pydensecrf
+windows下pip install 会报缺少 Microsoft Visual C++ 14.0 用conda  
+conda install -c conda-forge pydensecrf
+
 # pickle
 import pickle
 **output = open('data.pkl', 'wb')**
@@ -56,3 +61,5 @@ store_const 、append 、count 、callback
 * options，它是一个对象（optpars.Values），保存有命令行参数值。只要知道命令行参数名，如 file，就可以访问其对应的值： options.file
 * args，它是一个由 positional arguments 组成的列表
 
+# pyqt
+anaconda下pip install 会报dll缺失，用conda install 即可

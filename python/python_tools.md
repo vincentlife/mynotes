@@ -31,6 +31,11 @@ pip install --user follows four rules:
 * conda update numpy
 * conda search numpy
 
+## 配置镜像
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --set show_channel_urls yes
+
 # juypter
 ## run 
 jupyter notebook 
@@ -117,7 +122,7 @@ bdist_wheel调用过程：
   参数不传或传入列表为空时py文件将不会被打包
   可以用setuptools.find_packages()来找到所有含有__init__.py文件的包
 
-
+## tqdm
 
 
 

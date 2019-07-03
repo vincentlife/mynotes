@@ -1,3 +1,30 @@
+# flags
+UNCHANGED flag=-1时，8位深度，原通道
+GRAYSCALE flag=0，8位深度，1通道
+COLOR flag=1,   8位深度  ，3通道
+ANYDEPTH flag=2，原深度，1通道
+ANYCOLOR flag =4 
+
+# basic
+## resize
+INTER_NEAREST - 最近邻插值
+INTER_LINEAR - 线性插值（默认）
+INTER_AREA - 区域插值
+INTER_CUBIC - 三次样条插值
+INTER_LANCZOS4 - Lanczos插值
+双线性插值与最邻近插值的时间复杂度相对较低
+
+## 图像文件格式
+一般的图像文件格式使用的是 Unsigned 8bits，CvMat矩阵对应的参数类型就是
+CV_8UC1，CV_8UC2，CV_8UC3（最后的1、2、3表示通道数，譬如RGB3通道就用CV_8UC3）
+而float 是32位的，对应CvMat数据结构参数就是：CV_32FC1，CV_32FC2，CV_32FC3...
+double是64bits，对应CvMat数据结构参数：CV_64FC1，CV_64FC2，CV_64FC3等。
+
+## 坐标
+一行是同一个y row == height == Point.y
+一列是同一个x col == width  == Point.x
+
+
 # 直方图
 ## 直方图信息
     cv2.calcHist([img],[0],None,[256],[0,256])
@@ -29,6 +56,9 @@ equalizeHist考虑的是图片全部对比度，对比度受限自适应直方�
     cl1 = clahe.apply(img)
 
 # 轮廓
+
+# 分割
+## GrabCut
 
 
 # 滤波

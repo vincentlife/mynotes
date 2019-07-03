@@ -3,39 +3,103 @@
 * chr(i) 与ord相反，返回Unicode字符
 
 # pythonic code
-* 交换变量 a,b = b,a 或者给多个变量赋值 
-* sort(cmp=None, key=None, reverse=False cmp和key均为函数 reverse = True 降序
-* min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
-* set的写法 set([]) ->  {} 称为set literal
-* 打开多个文件
-with open('file1') as f1, open('file2') as f2, open('file3') as f3: 或者
-with nested(open('file1'), open('file2'), open('file3')) as (f1,f2,f3):
+## 解包，传参
+```
+# 高级解包 
+a, b, *rest = range(10) 
+a, *rest, b = range(10)
+# 传参 * args 为列表参数 ** kwargs 为字典参数
+func(*[1],{'a':1,'b':2})  
+```
+
+## slice
 * 反向输出字符串 'test'[::-1]
 * l[1:9:-1] 取区间[1, 9)，取步长为-1的时候返回空集
 * l[9:1:-1] 取区间[9, 1), 取步长为-1的时候返回9到2
+...可以用来代替所有的冒号，比如a[:,:,:,1]可以用a[..., 1]来代替
+
+## sort
+* sort(cmp=None, key=None, reverse=False cmp和key均为函数 reverse = True 降序
+* min/max 取字典最值键：min(dict.items(), key=lambda x: x[1])[0]
+
+## collections
+* set的写法 set([]) ->  {} 称为set literal
 * 使用dictionary实现switch dict = {key:arg} ,arg可以是function, dict.get(key,default)
-* for else语句 在for循环完整完成后才执行else；如果中途从break跳出，则连else一起跳出。
+* 两个列表生成字典 
+    * dict(map(lambda x,y:[x,y],list1,list2))
+    * dict(zip(list1,list2))
+    * {k:v for k,v in zip(l1,l2)}
+
+
+## with
+* 打开多个文件
+with open('file1') as f1, open('file2') as f2, open('file3') as f3: 或者
+with nested(open('file1'), open('file2'), open('file3')) as (f1,f2,f3):
+
 
 # knowledge
+## property
+@property 用法： 控制访问权限
+```
+class A:
+    def __init__(self, name):
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+```
+
+**property函数** 是@property的令一种写法
+```
+class A
+    def __init__(self, name):
+        self._name = name
+
+    def get_name(self):
+        return self._name
+
+    def set_name(self, value):
+        self._name = value
+
+    name = property(fget=get_name, fset=set_name, fdel=None, doc='name of an animal')
+```
+
+
+## 数值
 * // 取整除。 int 用/ 得到浮点数
 * float("inf"), float("-inf") 正负无穷。当涉及 > 和 < 运算时，
 所有数都比-inf大，所有数都比+inf小。+inf 和 +inf相等，-inf 和 -inf相等。利用 inf 乘以0会得到 not-a-number(NaN)。除了inf外的其他数除以inf，会得到0。
-* 使用zip()可进行两个变量的循环 for i,j in zip(range(2),range(2))
+
+* for else语句 在for循环完整完成后才执行else；如果中途从break跳出，则连else一起跳出。
 * enumerate() for index，text in enumerate(list):
 * sys.argv[0] 脚本名 sys.argv[1] 第一个参数
 * isinstance(obj,type)
 * 保留小数 方法一： print(round(a/b,2)) 方法二：print(format(b,'.2f'))
 * 最大的int型 python3中为sys.maxsize (python2中为maxint) 最大的浮点数 float(‘inf’)
-* *args 为列表参数 ** kwargs 为字典参数 可以用这种形式传参给kwargs func(**{'a':1,'b':2})  
+
 * python 传参 如果传的参数类型是不可改变的，如基本类型，String类型、元组类型，函数内如需改变参数的值，则相当于重新新建了一个对象。
 * 下列对象的布尔值都是False：
 1. NONE 或 False(布尔类型)
 2. 所有的值为零的数 包括整型 浮点型等等
 3. ""(空字符串) [](空列表) ()(空元组) {}(空字典)
 
+## 判断系统
+```
+import platform
+sysstr = platform.system()
+if sysstr == "Windows":
+    pass
+```
+
 # 列表推导
 * 列表推导式 [i*2 for i in range(10) if i > 3] PS:python2中xrange被range取代
 * x1 if c1 else x2 if c2 else x3 列表推导中的if else 嵌套
+* 生成字典 {k:v for k,v in zip(l1,l2)}
 
 # copy
 copy.copy() copy.deepcopy() 深拷贝和浅拷贝
@@ -75,6 +139,8 @@ python -m xxx.py 把模块当作脚本来启动
 将列表推导的中括号，替换成圆括号，就是一个生成器表达式：(x**2 for x in range(5))
 
 ## itertools
+### islice
+
 ### product
 笛卡尔积 
 单个 itertools.product(lista, repeat = 2)
@@ -105,80 +171,6 @@ python 3 filter() 返回filter对象 需要list(filter)
 * reduce(lambda x, y: x + y, foo)
 python3 需要 from functools import reduce 
 
-
-# Decorator
-## @property
-@property一个getter方法变成属性
-@attr.setter，负责把一个setter方法变成属性赋值
-
-# re
-* p = re.compile(pattern), p.func(string)
-* re.func(pattern,string)
-
-## match
-尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。成功返回Match对象
-## search
-re.search 扫描整个字符串并返回第一个成功的匹配。成功返回Match对象
-## findall
-搜索string，以列表形式返回全部能匹配的子串
-## sub(pattern, repl, string, count=0, flags=0)
-检索和替换
-* pattern : 正则中的模式字符串。
-* repl : 替换的字符串，也可为一个函数。
-* string : 要被查找替换的原始字符串。
-* count : 模式匹配后替换的最大次数，默认 0 表示替换所有的匹配。
-## split(pattern, string[, maxsplit])
-按照能够匹配的子串将string分割后返回列表。maxsplit用于指定最大分割次数，不指定将全部分割。
-## finditer(pattern, string[, flags]): 
-搜索string，返回一个顺序访问每一个匹配结果（Match对象）的迭代器。 
-## Match对象
-### 属性
-string: 匹配时使用的文本。
-re: 匹配时使用的Pattern对象。
-pos: 文本中正则表达式开始搜索的索引。值与Pattern.match()和Pattern.seach()方法的同名参数相同。
-endpos: 文本中正则表达式结束搜索的索引。值与Pattern.match()和Pattern.seach()方法的同名参数相同。
-lastindex: 最后一个被捕获的分组在文本中的索引。如果没有被捕获的分组，将为None。
-lastgroup: 最后一个被捕获的分组的别名。如果这个分组没有别名或者没有被捕获的分组，将为None。
-### 方法
-* group([group1, …]): 
-获得一个或多个分组截获的字符串；指定多个参数时将以元组形式返回。group1可以使用编号也可以使用别名；编号0代表整个匹配的子串；不填写参数时，返回group(0)；没有截获字符串的组返回None；截获了多次的组返回最后一次截获的子串。
-* groups([default]): 
-以元组形式返回全部分组截获的字符串。相当于调用group(1,2,…last)。default表示没有截获字符串的组以这个值替代，默认为None。
-* groupdict([default]): 
-返回以有别名的组的别名为键、以该组截获的子串为值的字典，没有别名的组不包含在内
-* start([group]): 
-返回指定的组截获的子串在string中的起始索引（子串第一个字符的索引）。group默认值为0。
-* end([group]): 
-返回指定的组截获的子串在string中的结束索引（子串最后一个字符的索引+1）。group默认值为0。
-* span([group]): 
-返回(start(group), end(group))。
-* expand(template): 
-将匹配到的分组代入template中然后返回。template中可以使用\id或\g<id>、\g<name>引用分组，但不能使用编号0。\id与\g<id>是等价的；但\10将被认为是第10个分组，如果你想表达\1之后是字符'0'，只能使用\g<1>0。
-
-## flag
-re.I    使匹配对大小写不敏感
-re.L    做本地化识别（locale-aware）匹配
-re.M    多行匹配，影响 ^ 和 $
-re.S    使 . 匹配包括换行在内的所有字符
-re.U    根据Unicode字符集解析字符。这个标志影响 \w, \W, \b, \B.
-re.X    该标志通过给予你更灵活的格式以便你将正则表达式写得更易于理解。
-
-## 语法
-* re? 匹配0个或1个由前面的正则表达式定义的片段，可以用\*?来进行**非贪婪方式**
-* ^   匹配字符串的开头
-* $   匹配字符串的末尾。
-* .   匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。 或[.\n]
-* () 表示group
-* \d  匹配一个数字字符。等价于 [0-9]。
-* \D  匹配一个非数字字符。等价于 [^0-9]。
-* \s  匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。
-* \S  匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。
-* \w  匹配包括下划线的任何单词字符。等价于'[A-Za-z0-9_]'。
-* \W  匹配任何非单词字符。等价于 '[^A-Za-z0-9_]'。
-* [...]   用来表示一组字符,单独列出：[amk] 匹配 'a'，'m'或'k'
-* [^...]  不在[]中的字符：[^abc] 匹配除了a,b,c之外的字符。
-* re* 匹配0个或多个的表达式。
-* re+ 匹配1个或多个的表达式。
 
 # collections
 ## collections.Counter()
@@ -220,6 +212,4 @@ truncate 从读写位置起切断数据，参数size限定裁剪长度，缺省�
 tell 返回当前读写位置
 seek seek(0) 注意在写入StringIO后指针移动了，需要将指针再seek到开头。
 close flush 
-
-# magic methods
 

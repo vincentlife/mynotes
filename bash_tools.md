@@ -157,8 +157,12 @@ echo -n "c25haWx3YXJyaW9y" | base64 -d
 -n 选项没有输出字符串结尾的' '换行字符
 
 
-# du
-du -ah --max-depth=1    
+# du df
+df -hl 查看磁盘剩余空间
+df -h 查看每个根路径的分区大小
+du -sh [目录名] 返回该目录的大小
+
+du -ah --max-depth=1   
 a表示显示目录下所有的文件和文件夹（不含子目录），
 h表示以人类能看懂的方式
 max-depth表示目录的深度。
